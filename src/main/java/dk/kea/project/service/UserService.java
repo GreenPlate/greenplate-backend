@@ -54,12 +54,22 @@ public class UserService {
     }
 
     public void deleteUserByUser(String username) {
+        //TODO: Create guard statement
         User user = getUser(username);
         userRepository.deleteById(username);
     }
 
     public UserResponse createUser(UserRequest userRequest) {
         User user = UserRequest.getUserEntity(userRequest);
+
+        userRepository.findById(user.getUsername()).ifPresent(u -> {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "User already exists");
+        });
+
+        if(userRepository.findByEmail(user.getEmail()) != null) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Email already exists");
+        };
+
         userRepository.save(user);
         return new UserResponse(user);
     }

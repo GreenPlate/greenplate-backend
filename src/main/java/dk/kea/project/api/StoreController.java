@@ -21,4 +21,9 @@ public class StoreController {
     public List<StoreResponse> getStores(@RequestParam int zipcode){
         return sallingService.getStores(zipcode);
     }
+
+    @GetMapping("/foodwaste")
+    public List<ProductResponse> getFoodWaste(@RequestParam String id){
+        return sallingService.getFoodWaste(id);
+    }
 }

@@ -18,6 +18,7 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
+import java.util.List;
 
 @Service
 public class OpenAIService {
@@ -48,8 +49,7 @@ public class OpenAIService {
 //	}
 
 
-	public MyRecipe makeRequest(String storeID, String _systemMessage) {
-		String userPrompt = sallingService.ingredients(storeID);
+	public MyRecipe makeRequest(String ingredients, String _systemMessage) {
 		ChatRecipeRequest requestDto = new ChatRecipeRequest();
 		requestDto.setModel(MODEL);
 		requestDto.setTemperature(TEMPERATURE);
@@ -58,7 +58,7 @@ public class OpenAIService {
 		requestDto.setFrequency_penalty(FREQUENCY_PENALTY);
 		requestDto.setPresence_penalty(PRESENCE_PENALTY);
 		requestDto.getMessages().add(new ChatRecipeRequest.Message("system", _systemMessage));
-		requestDto.getMessages().add(new ChatRecipeRequest.Message("user", userPrompt));
+		requestDto.getMessages().add(new ChatRecipeRequest.Message("user", ingredients));
 
 		ObjectMapper mapper = new ObjectMapper();
 		String json = "";

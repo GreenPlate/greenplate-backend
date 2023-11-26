@@ -1,5 +1,6 @@
 package dk.kea.project.dto;
 
+import dk.kea.project.entity.Product;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -21,14 +22,14 @@ public class ProductResponse
 		public double percentDiscount;
 		public String category;
 
-		public ProductResponse(SallingResponse sallingResponse) {
-			this.description = sallingResponse.clearances.get(0).product.description;
-			this.ean = sallingResponse.clearances.get(0).product.ean;
-			this.image = sallingResponse.clearances.get(0).product.image;
-			this.originalPrice = sallingResponse.clearances.get(0).offer.originalPrice;
-			this.newPrice = sallingResponse.clearances.get(0).offer.newPrice;
-			this.discount = sallingResponse.clearances.get(0).offer.discount;
-			this.percentDiscount = sallingResponse.clearances.get(0).offer.percentDiscount;
-			this.category = sallingResponse.clearances.get(0).product.description;
+		public ProductResponse (Product product) {
+		    this.description = product.getDescription();
+		    this.ean = product.getEan();
+		    this.image = product.getImage();
+		    this.originalPrice = product.getOriginalPrice();
+		    this.newPrice = product.getNewPrice();
+		    this.discount = product.getDiscount();
+		    this.percentDiscount = product.getPercentDiscount();
+		    this.category = product.getCategory();
 		}
 	}

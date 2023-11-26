@@ -23,9 +23,9 @@ public class ProductService
 		RequestRepository requestRepository;
 
 		//SallingService sallingService;
-		public Page<ProductResponse> getProducts(Pageable pageable) {
-		    List<ProductResponse> productResponses = productRepository.findAll().stream().map(ProductResponse::new).toList();
-		    return productRepository.findAll(pageable).map(ProductResponse::new);
+		public Page<ProductResponse> getProducts(String storeId, Pageable pageable) {
+		    //List<ProductResponse> productResponses = productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).toList();
+		    return productRepository.findAllByStoreId(storeId, pageable).map(ProductResponse::new);
 		}
 
 

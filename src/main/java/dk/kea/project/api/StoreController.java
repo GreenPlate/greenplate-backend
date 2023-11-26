@@ -3,6 +3,7 @@ package dk.kea.project.api;
 import dk.kea.project.dto.ProductResponse;
 import dk.kea.project.dto.SallingResponse;
 import dk.kea.project.dto.StoreResponse;
+import dk.kea.project.service.ProductService;
 import dk.kea.project.service.SallingService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -34,8 +35,8 @@ public class StoreController {
         return sallingService.getFoodWaste(id);
     }
     @GetMapping("/clearance")
-    public Page<ProductResponse> getClearance(@RequestParam String id, Pageable page){
+    public Page<ProductResponse> getProducts(@RequestParam String id, Pageable page){
 
-        return productService.getClearance(id, page);
+        return productService.getProducts(page);
     }
 }

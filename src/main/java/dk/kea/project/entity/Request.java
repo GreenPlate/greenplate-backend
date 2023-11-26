@@ -18,7 +18,7 @@ public class Request
 		@Id
 		@GeneratedValue(strategy = GenerationType.IDENTITY)
 		int requestId;
-		@ManyToOne
+
 		@JoinColumn(name = "storeId")
 		String storeId;
 		@CreationTimestamp

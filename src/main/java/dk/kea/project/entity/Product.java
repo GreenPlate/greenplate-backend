@@ -28,7 +28,7 @@ public class Product
 		int requestId;
 
 		public Product(SallingResponse sallingResponse) {
-		    this.description = sallingResponse.clearances.get(0).getDescription();
+		    this.description = sallingResponse.clearances.get(0).product.getDescription();
 		    this.ean = clearance.getEan();
 		    this.image = clearance.getImage();
 		    this.category = clearance.getCategory();

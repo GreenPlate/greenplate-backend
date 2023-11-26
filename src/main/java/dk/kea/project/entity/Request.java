@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
+import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Getter
@@ -22,4 +23,7 @@ public class Request
 		@CreationTimestamp
 		LocalDateTime created;
 
+		public LocalDateTime getExpires() {
+			return created.plusMinutes(15);
+		}
 	}

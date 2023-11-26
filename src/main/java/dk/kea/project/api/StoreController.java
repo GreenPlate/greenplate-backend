@@ -36,7 +36,10 @@ public class StoreController {
     }
     @GetMapping("/clearance")
     public Page<ProductResponse> getProducts(@RequestParam String id, Pageable page){
-
+        // check om request er gyldig:
+        if (productService.checkRequest(id)){
+            return productService.getProducts(page);
+        }
         return productService.getProducts(page);
     }
 }

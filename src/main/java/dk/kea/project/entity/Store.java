@@ -16,7 +16,6 @@ public class Store
 	{
 		@Id
 		String storeId;
-
 		String name;
 		String address;
 		String zipcode;

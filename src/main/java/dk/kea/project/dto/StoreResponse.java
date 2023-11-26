@@ -20,9 +20,11 @@ public class StoreResponse {
     @Getter
     @Setter
     @NoArgsConstructor
-    private static class Address{
+     public static class Address{
         public String city;
         public String street;
-        public int zip;
+        public String zip;
+
+
     }
 }

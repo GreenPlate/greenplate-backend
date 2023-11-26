@@ -39,5 +39,6 @@ public class SallingResponse
         public String description;
         public String ean;
         public String image;
+        public String [] category;
     }
 }

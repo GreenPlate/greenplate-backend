@@ -35,8 +35,8 @@ public class ProductService
 		public void addProducts(List<Product> products) {
 		    productRepository.saveAll(products);
 		}
-		public void addRequest(String id){
-		    requestRepository.save(new Request().setStoreId(id););
+		public void addRequest(Request request){
+		    requestRepository.save(request);
 
 		}
 
@@ -55,6 +55,9 @@ public class ProductService
 				requestExistsAndStillValid=true;
 			}
 		    return requestExistsAndStillValid;
+		}
+		public Request findNewestRequest(String id, LocalDateTime nowMinus15){
+			return requestRepository.findRequestByStoreIdAndCreatedIsAfter(id, nowMinus15);
 		}
 	}
 

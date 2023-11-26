@@ -43,6 +43,23 @@ public class SallingService{
         return filteredStores;
 
     }
+    public List<StoreResponse> getAllStores(){
+        List<StoreResponse> stores = webClient.method(HttpMethod.GET)
+              .uri(SALLING_API_URL_V2 + "/stores")
+              .header("Authorization", "Bearer " + SALLING_API_KEY)
+              .retrieve()
+              .bodyToFlux(StoreResponse.class)
+              .collectList()
+              .doOnError(e -> System.out.println(e.getMessage()))
+              .block();
+        List<String> desiredBrands = Arrays.asList("netto", "bilka", "foetex");
+
+        List<StoreResponse> filteredStores = stores.stream()
+              .filter(store -> desiredBrands.contains(store.getBrand()))
+              .toList();
+        return filteredStores;
+
+    }
     public List<SallingResponse> getFoodWaste(String id){
         List<SallingResponse> products =
         webClient.method(HttpMethod.GET)

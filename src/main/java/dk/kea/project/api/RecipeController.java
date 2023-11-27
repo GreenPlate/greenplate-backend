@@ -40,7 +40,9 @@ public class RecipeController {
     }
 
     private OpenAIService openAIService;
-    final static String SYSTEM_MESSAGE = "Lav kun 1 opskrift på få udvalgte ingredienser. Dit svar skal være komplet og under 110 tokens.";
+    final static String SYSTEM_MESSAGE = "Lav kun 1 opskrift på få udvalgte ingredienser. Dit svar skal være komplet og under 800 tokens."
+            +"Overskrift skal være <h3>, ingredients skal være <ul> og fremgangsmåde skal være <ol>. begge i hver deres <div> med overskrifter i <strong>"
+            +"Derudover skal hvert element i fremgangsmåden markeres med <strong> også.";
 
     public RecipeController(OpenAIService openAIService, RecipeService recipeService){
         this.openAIService = openAIService;

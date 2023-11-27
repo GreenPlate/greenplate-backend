@@ -38,9 +38,8 @@ public class UserWithRoles implements UserDetails {
    */
   @Transient
   private static final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
   @Id
-  @Column(nullable = false,length = 50,unique = true)
+  @Column(nullable = false,length = 50,unique = true, name = "id")
   String username;
 
   @Column(nullable = false,length = 50,unique = true)

@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ProductService
@@ -23,9 +24,10 @@ public class ProductService
 		RequestRepository requestRepository;
 
 		//SallingService sallingService;
-		public Page<ProductResponse> getProducts(String storeId, Pageable pageable) {
+		public List<ProductResponse> getProducts(String storeId) {
 		    //List<ProductResponse> productResponses = productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).toList();
-		    return productRepository.findAllByStoreId(storeId, pageable).map(ProductResponse::new);
+//		    return productRepository.findAllByStoreId(storeId, pageable).map(ProductResponse::new);
+			return productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).collect(Collectors.toList());
 		}
 
 

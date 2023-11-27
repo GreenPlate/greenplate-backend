@@ -53,7 +53,7 @@ public class ProductService
 			boolean requestExistsAndStillValid = false;
 			LocalDateTime now = LocalDateTime.now();
 
-			if(!requestRepository.existsByStoreId(id) || requestRepository.findByStoreId(id).getExpires().isAfter(now)){
+			if(requestRepository.existsByStoreId(id) && requestRepository.findByStoreId(id).getExpires().isAfter(now)){
 				requestExistsAndStillValid=true;
 			}
 		    return requestExistsAndStillValid;

@@ -87,6 +87,27 @@ public class StoreController {
         }
         return productService.getProducts(id);
     }
+//    public List<ProductResponse> getProducts(@RequestParam String id){
+//        // check if request still is valid:
+//        if (productService.checkRequest(id)){
+//            return productService.getProducts(id);
+//        }
+//        else{
+//            //persist request in database: create new request
+//            Request request = new Request();
+//            request.setStoreId(id);
+//            LocalDateTime now = LocalDateTime.now();
+//            // request.setCreated(now);
+//            productService.addRequest(request);
+//            int requestId = productService.findNewestRequest(id,now.minusMinutes(15)).getRequestId();
+//            List<SallingResponse> sallingResponse = sallingService.getFoodWaste(id);
+//            convertSallingResponse(sallingResponse, requestId, id);
+////            productService.addProducts(products);
+//
+//
+//        }
+//        return productService.getProducts(id);
+//    }
     private void convertSallingResponse(List<SallingResponse> sallingResponse,int requestId, String storeId) {
         List<Product> products= new ArrayList<>();
         sallingResponse.get(0).clearances.forEach(clearance -> {

@@ -63,18 +63,42 @@ public class RecipeController {
         MyRecipe myRecipe = openAIService.makeRequest(ingredients, SYSTEM_MESSAGE);
         return myRecipe;
     }
+
     @PostMapping("/save-recipe")
     public void saveRecipe(@RequestBody RecipeRequest recipeBody) {
         recipeService.saveRecipe(recipeBody);
     }
-    
+
+    /**
+     * Retrieves all recipes in the system.
+     *
+     * @return A list of {@code RecipeResponse} representing the recipes.
+     */
     @GetMapping("/admin")
-    public List<RecipeResponse> getRecipes(){
+    public List<RecipeResponse> getRecipes() {
         return recipeService.getAllRecipes();
     }
-    
+
+    /**
+     * Updates a recipe based on the provided {@code RecipeRequest}.
+     *
+     * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be updated.
+     * @return A {@code RecipeResponse} representing the result of the update operation.
+     */
     @PatchMapping("/admin")
-    public RecipeResponse updateRecipe(@RequestBody RecipeRequest recipeBody){
+    public RecipeResponse updateRecipe(@RequestBody RecipeRequest recipeBody) {
         return recipeService.updateRecipe(recipeBody);
+    }
+
+    /**
+     * Deletes a recipe based on the provided {@code RecipeRequest}.
+     *
+     * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be deleted.
+     * @return A {@code RecipeResponse} representing the result of the delete operation.
+     */
+    @DeleteMapping("/admin")
+    public RecipeResponse deleteRecipe(@RequestBody RecipeRequest recipeBody) {
+        System.out.println("RecipeBody.getId() = " + recipeBody.getId());
+        return recipeService.deleteRecipe(recipeBody);
     }
 }

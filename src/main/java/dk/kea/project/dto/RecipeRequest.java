@@ -1,7 +1,6 @@
 package dk.kea.project.dto;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 

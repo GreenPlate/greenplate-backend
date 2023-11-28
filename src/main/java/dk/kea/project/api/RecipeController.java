@@ -1,7 +1,9 @@
 package dk.kea.project.api;
 
 import dk.kea.project.dto.MyRecipe;
+import dk.kea.project.dto.RecipeRequest;
 import dk.kea.project.service.OpenAIService;
+import dk.kea.project.service.RecipeService;
 import io.github.bucket4j.Bandwidth;
 import io.github.bucket4j.Bucket;
 import io.github.bucket4j.Refill;
@@ -18,7 +20,7 @@ import java.util.concurrent.ConcurrentHashMap;
 @RestController
 @RequestMapping("/api/recipes")
 public class RecipeController {
-
+    RecipeService recipeService;
     // Rate limiting parameters
     private final int BUCKET_CAPACITY = 3;
     private final int REFILL_AMOUNT = 3;
@@ -38,12 +40,13 @@ public class RecipeController {
     }
 
     private OpenAIService openAIService;
-    final static String SYSTEM_MESSAGE = "Lav kun 1 opskrift på få udvalgte ingredienser. Dit svar skal være komplet og under 110 tokens.";
+    final static String SYSTEM_MESSAGE = "Lav kun 1 opskrift på få udvalgte ingredienser. Dit svar skal være komplet og under 800 tokens."
+            +"Overskrift skal være <h3> med id: recipe-heading, ingredients skal være <ul> og fremgangsmåde skal være <ol>. begge i hver deres <div> med overskrifter i <strong>"
+            +"Derudover skal hvert element i fremgangsmåden markeres med <strong> også.";
 
-    public RecipeController(OpenAIService openAIService)
-    {
+    public RecipeController(OpenAIService openAIService, RecipeService recipeService){
         this.openAIService = openAIService;
-
+        this.recipeService = recipeService;
     }
     @PostMapping()
     public MyRecipe makeRequest(@RequestBody String ingredients, HttpServletRequest request) {
@@ -56,5 +59,9 @@ public class RecipeController {
         }
         MyRecipe myRecipe = openAIService.makeRequest(ingredients, SYSTEM_MESSAGE);
         return myRecipe;
+    }
+    @PostMapping("/save-recipe")
+    public void saveRecipe(@RequestBody RecipeRequest recipeBody) {
+        recipeService.saveRecipe(recipeBody);
     }
 }

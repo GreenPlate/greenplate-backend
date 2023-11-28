@@ -1,7 +1,9 @@
 package dk.kea.project.api;
 
+import dk.kea.project.dto.ChatRecipeResponse;
 import dk.kea.project.dto.MyRecipe;
 import dk.kea.project.dto.RecipeRequest;
+import dk.kea.project.dto.RecipeResponse;
 import dk.kea.project.service.OpenAIService;
 import dk.kea.project.service.RecipeService;
 import io.github.bucket4j.Bandwidth;
@@ -14,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 
 
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -63,5 +66,10 @@ public class RecipeController {
     @PostMapping("/save-recipe")
     public void saveRecipe(@RequestBody RecipeRequest recipeBody) {
         recipeService.saveRecipe(recipeBody);
+    }
+    
+    @GetMapping("/admin")
+    public List<RecipeResponse> getRecipes(){
+        return recipeService.getAllRecipes();
     }
 }

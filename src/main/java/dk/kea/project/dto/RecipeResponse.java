@@ -1,5 +1,6 @@
 package dk.kea.project.dto;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import dk.kea.project.entity.Recipe;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

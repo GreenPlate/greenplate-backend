@@ -72,4 +72,9 @@ public class RecipeController {
     public List<RecipeResponse> getRecipes(){
         return recipeService.getAllRecipes();
     }
+    
+    @PatchMapping("/admin")
+    public RecipeResponse updateRecipe(@RequestBody RecipeRequest recipeBody){
+        return recipeService.updateRecipe(recipeBody);
+    }
 }

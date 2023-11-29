@@ -1,7 +1,7 @@
 package dk.kea.project.service;
 
 import dk.kea.project.dto.SallingResponse;
-import dk.kea.project.dto.StoreResponse;
+import dk.kea.project.dto.SallingStoreResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
@@ -26,35 +26,35 @@ public class SallingService{
     public SallingService() {
         this.webClient = WebClient.create();
     }
-    public List<StoreResponse> getStores(int zipcode){
-        List<StoreResponse> stores = webClient.method(HttpMethod.GET)
+    public List<SallingStoreResponse> getStores(int zipcode){
+        List<SallingStoreResponse> stores = webClient.method(HttpMethod.GET)
                 .uri(SALLING_API_URL_V2 + "/stores?zip="+ zipcode)
                 .header("Authorization", "Bearer " + SALLING_API_KEY)
                 .retrieve()
-                .bodyToFlux(StoreResponse.class)
+                .bodyToFlux(SallingStoreResponse.class)
                 .collectList()
                 .doOnError(e -> System.out.println(e.getMessage()))
                 .block();
         List<String> desiredBrands = Arrays.asList("netto", "bilka", "foetex");
 
-        List<StoreResponse> filteredStores = stores.stream()
+        List<SallingStoreResponse> filteredStores = stores.stream()
                 .filter(store -> desiredBrands.contains(store.getBrand()))
                 .toList();
         return filteredStores;
 
     }
-    public List<StoreResponse> getAllStores(){
-        List<StoreResponse> stores = webClient.method(HttpMethod.GET)
+    public List<SallingStoreResponse> getAllStores(){
+        List<SallingStoreResponse> stores = webClient.method(HttpMethod.GET)
               .uri(SALLING_API_URL_V2 + "/stores")
               .header("Authorization", "Bearer " + SALLING_API_KEY)
               .retrieve()
-              .bodyToFlux(StoreResponse.class)
+              .bodyToFlux(SallingStoreResponse.class)
               .collectList()
               .doOnError(e -> System.out.println(e.getMessage()))
               .block();
         List<String> desiredBrands = Arrays.asList("netto", "bilka", "foetex");
 
-        List<StoreResponse> filteredStores = stores.stream()
+        List<SallingStoreResponse> filteredStores = stores.stream()
               .filter(store -> desiredBrands.contains(store.getBrand()))
               .toList();
         return filteredStores;

@@ -16,9 +16,8 @@ public class Recipe {
     private String recipeTitle;
     @Column(length = 3000)
     private String recipeBody;
-    private String recipeIngredients;
 
-    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
     public Recipe(String recipeTitle, String recipeBody, String recipeIngredients, User user){

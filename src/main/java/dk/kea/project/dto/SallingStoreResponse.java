@@ -1,9 +1,6 @@
 package dk.kea.project.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -11,7 +8,7 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreResponse {
+public class SallingStoreResponse {
     private String id;
     private String brand;
     private String name;

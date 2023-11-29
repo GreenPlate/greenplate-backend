@@ -2,7 +2,7 @@ package dk.kea.project.api;
 
 import dk.kea.project.dto.ProductResponse;
 import dk.kea.project.dto.SallingResponse;
-import dk.kea.project.dto.StoreResponse;
+import dk.kea.project.dto.SallingStoreResponse;
 import dk.kea.project.entity.Product;
 import dk.kea.project.entity.Request;
 import dk.kea.project.entity.Store;
@@ -10,9 +10,6 @@ import dk.kea.project.repository.RequestRepository;
 import dk.kea.project.service.ProductService;
 import dk.kea.project.service.SallingService;
 import dk.kea.project.service.StoreService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -45,7 +42,7 @@ public class StoreController {
         return sallingService.getStores(zipcode);
     }
     @GetMapping("/all")
-    public List<StoreResponse> getAllStores(){
+    public List<SallingStoreResponse> getAllStores(){
         List<Store> stores=new ArrayList<>();
         sallingService.getAllStores().forEach(store -> {
             Store store1 = new Store();

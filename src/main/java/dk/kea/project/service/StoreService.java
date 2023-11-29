@@ -21,4 +21,15 @@ public class StoreService {
 	public void addStores(List<Store> stores) {
 		storeRepository.saveAll(stores);
 	}
+	public List<SallingStoreResponse> getStores(String zipcode){
+		List<Store> stores = storeRepository.findByZipcode(zipcode);
+
+		return stores.stream().map(store -> (new SallingStoreResponse(store))).toList();
+
+
+//		return productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).collect(Collectors.toList());
+
+	}
 }
+
+

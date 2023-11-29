@@ -22,10 +22,11 @@ public class Recipe {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Recipe(String recipeTitle, String recipeBody, String recipeIngredients, User user){
+    @ManyToMany
+    List<Offer> offer;
+
+    public Recipe(String recipeTitle, String recipeBody){
         this.recipeTitle = recipeTitle;
         this.recipeBody = recipeBody;
-        this.recipeIngredients = recipeIngredients;
-        this.user = user;
     }
 }

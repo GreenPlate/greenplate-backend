@@ -22,24 +22,27 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/stores")
 public class StoreController {
-    @Autowired
-    private SallingService sallingService;
-    @Autowired
-    private ProductService productService;
-    RequestRepository requestRepository;
-    @Autowired
-    private StoreService storeService;
-    public StoreController(SallingService sallingService, ProductService productService, RequestRepository requestRepository, StoreService storeService) {
 
+    SallingService sallingService;
+    ProductService productService;
+    RequestRepository requestRepository;
+    StoreService storeService;
+
+    public StoreController(SallingService sallingService,
+                           ProductService productService,
+                           RequestRepository requestRepository,
+                           StoreService storeService) {
         this.storeService = storeService;
         this.productService = productService;
         this.requestRepository = requestRepository;
         this.sallingService = sallingService;
 
     }
+
     @GetMapping
-    public List<StoreResponse> getStores(@RequestParam int zipcode){
-        return sallingService.getStores(zipcode);
+    public List<SallingStoreResponse> getStores(@RequestParam String zipcode){
+        return storeService.getStores(zipcode);
+        //return sallingService.getStores(zipcode);
     }
     @GetMapping("/all")
     public List<SallingStoreResponse> getAllStores(){
@@ -62,6 +65,7 @@ public class StoreController {
         // kald salling service brug List<SallingResponse> i ny service
         return sallingService.getFoodWaste(id);
     }
+
     @GetMapping("/clearance")
     public List<ProductResponse> getProducts(@RequestParam String id){
         // check if request still is valid:
@@ -71,7 +75,7 @@ public class StoreController {
         else{
             //persist request in database: create new request
             Request request = new Request();
-            request.setStoreId(id);
+            request.setId(id);
             LocalDateTime now = LocalDateTime.now();
            // request.setCreated(now);
             productService.addRequest(request);
@@ -125,7 +129,6 @@ public class StoreController {
             products.add(product);
         });
         productService.addProducts(products);
-
     }
     }
 

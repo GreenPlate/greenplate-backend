@@ -22,7 +22,7 @@ public class Request {
 	@CreationTimestamp
 	LocalDateTime created;
 
-		public LocalDateTime getExpires() {
-			return created.plusMinutes(15);
-		}
+	public LocalDateTime getExpires() {
+		return created.plusMinutes(15);
 	}
+}

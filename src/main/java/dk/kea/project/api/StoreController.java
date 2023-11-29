@@ -44,6 +44,7 @@ public class StoreController {
         return storeService.getStores(zipcode);
         //return sallingService.getStores(zipcode);
     }
+
     @GetMapping("/all")
     public List<SallingStoreResponse> getAllStores(){
         List<Store> stores=new ArrayList<>();
@@ -52,7 +53,7 @@ public class StoreController {
             store1.setAddress(store.getAddress().street + " " + store.getAddress().city );
             store1.setName(store.getName());
             store1.setZipcode(store.getAddress().zip);
-            store1.setStoreId(store.getId());
+            store1.setId(store.getId());
             stores.add(store1);
         });
         storeService.addStores(stores);
@@ -130,7 +131,7 @@ public class StoreController {
         });
         productService.addProducts(products);
     }
-    }
+}
 
 
 

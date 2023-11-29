@@ -21,7 +21,5 @@ public class SallingStoreResponse {
         public String city;
         public String street;
         public String zip;
-
-
     }
 }

@@ -31,8 +31,6 @@ public class ApiUsage {
         this.similiarPrompts = "For 1$, this is the amount of similar requests you can make: " + Math.round(1/(tokensUsed * 0.0015 / 1000));
     }
 
-    
-
     @CreationTimestamp
     LocalDateTime created;
 }

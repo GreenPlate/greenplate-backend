@@ -1,42 +1,35 @@
 package dk.kea.project.dto;
 
+import dk.kea.project.entity.Product;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
-
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProductResponse {
-    public List<Clearance> clearances;
+@AllArgsConstructor
 
-//    public String toString(){
-//        return clearances.get(0).product.description;
-//    }
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    public static class Clearance{
-        public Offer offer;
-        public Product product;
-    }
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    public static class Offer{
-        public double originalPrice;
-        public double newPrice;
-        public double discount;
-        public double percentDiscount;
-    }
-    @Getter
-    @Setter
-    @NoArgsConstructor
-    public static class Product{
-        public String description;
-        public String ean;
-        public String image;
-    }
-}
+public class ProductResponse
+	{
+		public String description;
+		public String ean;
+		public String image;
+		public double originalPrice;
+		public double newPrice;
+		public double discount;
+		public double percentDiscount;
+		public String category;
+
+		public ProductResponse (Product product) {
+		    this.description = product.getDescription();
+		    this.ean = product.getEan();
+		    this.image = product.getImage();
+		    this.originalPrice = product.getOriginalPrice();
+		    this.newPrice = product.getNewPrice();
+		    this.discount = product.getDiscount();
+		    this.percentDiscount = product.getPercentDiscount();
+		    this.category = product.getCategory();
+		}
+	}

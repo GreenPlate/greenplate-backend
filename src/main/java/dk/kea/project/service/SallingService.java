@@ -1,13 +1,12 @@
 package dk.kea.project.service;
 
-import dk.kea.project.dto.ProductResponse;
+import dk.kea.project.dto.SallingResponse;
 import dk.kea.project.dto.StoreResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -44,13 +43,30 @@ public class SallingService{
         return filteredStores;
 
     }
-    public List<ProductResponse> getFoodWaste(String id){
-        List<ProductResponse> products =
+    public List<StoreResponse> getAllStores(){
+        List<StoreResponse> stores = webClient.method(HttpMethod.GET)
+              .uri(SALLING_API_URL_V2 + "/stores")
+              .header("Authorization", "Bearer " + SALLING_API_KEY)
+              .retrieve()
+              .bodyToFlux(StoreResponse.class)
+              .collectList()
+              .doOnError(e -> System.out.println(e.getMessage()))
+              .block();
+        List<String> desiredBrands = Arrays.asList("netto", "bilka", "foetex");
+
+        List<StoreResponse> filteredStores = stores.stream()
+              .filter(store -> desiredBrands.contains(store.getBrand()))
+              .toList();
+        return filteredStores;
+
+    }
+    public List<SallingResponse> getFoodWaste(String id){
+        List<SallingResponse> products =
         webClient.method(HttpMethod.GET)
                 .uri(SALLING_API_URL_V1 + "/food-waste/" + id)
                 .header("Authorization", "Bearer " + SALLING_API_KEY)
                 .retrieve()
-                .bodyToFlux(ProductResponse.class)
+                .bodyToFlux(SallingResponse.class)
                 .collectList()
                 .doOnError(e -> System.out.println(e.getMessage()))
                 .block();
@@ -58,10 +74,12 @@ public class SallingService{
 
                 return products;
     }
+
+
     public String ingredients(String storeId){
-        List<ProductResponse> products=getFoodWaste(storeId);
+        List<SallingResponse> products=getFoodWaste(storeId);
         String ingredients = products.stream()
-              .flatMap(productResponse -> productResponse.getClearances().stream()
+              .flatMap(sallingResponse -> sallingResponse.getClearances().stream()
                     .map(clearance -> clearance.getProduct().getDescription()))
               .collect(Collectors.joining(", "));
         List<String> ingredientsList = Arrays.asList(ingredients.split(", "));

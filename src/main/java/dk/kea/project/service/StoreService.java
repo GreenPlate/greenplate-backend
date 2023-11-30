@@ -1,10 +1,15 @@
 package dk.kea.project.service;
 
+import dk.kea.project.dto.ProductResponse;
 import dk.kea.project.dto.SallingStoreResponse;
+import dk.kea.project.dto.StoreResponse;
 import dk.kea.project.entity.Store;
 import dk.kea.project.repository.StoreRepository;
 import org.springframework.stereotype.Service;
+
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class StoreService {

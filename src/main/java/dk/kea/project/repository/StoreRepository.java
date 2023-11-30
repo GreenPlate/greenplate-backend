@@ -9,3 +9,4 @@ public interface StoreRepository extends JpaRepository<Store, String> {
 	List<Store> findByZipcode(String zipcode);
 
 	}
+

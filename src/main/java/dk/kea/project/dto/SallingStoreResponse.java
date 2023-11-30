@@ -22,4 +22,13 @@ public class SallingStoreResponse {
         public String street;
         public String zip;
     }
+    public void SallingStoreResponse(Store store){
+        this.id = store.getId();
+        this.brand = store.getBrand();
+        this.name = store.getName();
+        this.address = new Address();
+        this.address.city = store.getCity();
+        this.address.street = store.getStreet();
+        this.address.zip = store.getZip();
+    }
 }

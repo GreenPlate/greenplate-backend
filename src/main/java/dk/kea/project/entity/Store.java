@@ -1,5 +1,6 @@
 package dk.kea.project.entity;
 
+import dk.kea.project.dto.SallingStoreResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,4 +18,13 @@ public class Store {
 	String zip;
 	String city;
 	String street;
+
+	public Store(SallingStoreResponse sallingStoreResponse) {
+		this.id = sallingStoreResponse.getId();
+		this.name = sallingStoreResponse.getName();
+		this.brand = sallingStoreResponse.getBrand();
+		this.zip = sallingStoreResponse.getAddress().getZip();
+		this.city = sallingStoreResponse.getAddress().getCity();
+		this.street = sallingStoreResponse.getAddress().getStreet();
+	}
 }

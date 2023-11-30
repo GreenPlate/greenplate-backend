@@ -26,7 +26,7 @@ public class SallingService{
     public SallingService() {
         this.webClient = WebClient.create();
     }
-    public List<SallingStoreResponse> getStores(int zipcode){
+    public List<SallingStoreResponse> getStores(String zipcode){
         List<SallingStoreResponse> stores = webClient.method(HttpMethod.GET)
                 .uri(SALLING_API_URL_V2 + "/stores?zip="+ zipcode)
                 .header("Authorization", "Bearer " + SALLING_API_KEY)

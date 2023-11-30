@@ -51,33 +51,33 @@ public class RecipeController {
         this.openAIService = openAIService;
         this.recipeService = recipeService;
     }
-    @PostMapping()
-    public MyRecipe makeRequest(@RequestBody String ingredients, HttpServletRequest request) {
-        String ip = request.getRemoteAddr();
-        Bucket bucket = getBucket(ip);
+//    @PostMapping()
+//    public MyRecipe makeRequest(@RequestBody String ingredients, HttpServletRequest request) {
+//        String ip = request.getRemoteAddr();
+//        Bucket bucket = getBucket(ip);
+//
+//        if (!bucket.tryConsume(1)) {
+//            System.out.println("Too many requests, try again later");
+//            throw new ResponseStatusException(HttpStatus.TOO_MANY_REQUESTS, "Too many requests, try again later");
+//        }
+//        MyRecipe myRecipe = openAIService.makeRequest(ingredients, SYSTEM_MESSAGE);
+//        return myRecipe;
+//    }
 
-        if (!bucket.tryConsume(1)) {
-            System.out.println("Too many requests, try again later");
-            throw new ResponseStatusException(HttpStatus.TOO_MANY_REQUESTS, "Too many requests, try again later");
-        }
-        MyRecipe myRecipe = openAIService.makeRequest(ingredients, SYSTEM_MESSAGE);
-        return myRecipe;
-    }
-
-    @PostMapping("/save-recipe")
-    public void saveRecipe(@RequestBody RecipeRequest recipeBody) {
-        recipeService.saveRecipe(recipeBody);
-    }
+//    @PostMapping("/save-recipe")
+//    public void saveRecipe(@RequestBody RecipeRequest recipeBody) {
+//        recipeService.saveRecipe(recipeBody);
+//    }
 
     /**
      * Retrieves all recipes in the system.
      *
      * @return A list of {@code RecipeResponse} representing the recipes.
      */
-    @GetMapping("/admin")
-    public List<RecipeResponse> getRecipes() {
-        return recipeService.getAllRecipes();
-    }
+//    @GetMapping("/admin")
+//    public List<RecipeResponse> getRecipes() {
+//        return recipeService.getAllRecipes();
+//    }
 
     /**
      * Updates a recipe based on the provided {@code RecipeRequest}.
@@ -85,10 +85,10 @@ public class RecipeController {
      * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be updated.
      * @return A {@code RecipeResponse} representing the result of the update operation.
      */
-    @PatchMapping("/admin")
-    public RecipeResponse updateRecipe(@RequestBody RecipeRequest recipeBody) {
-        return recipeService.updateRecipe(recipeBody);
-    }
+//    @PatchMapping("/admin")
+//    public RecipeResponse updateRecipe(@RequestBody RecipeRequest recipeBody) {
+//        return recipeService.updateRecipe(recipeBody);
+//    }
 
     /**
      * Deletes a recipe based on the provided {@code RecipeRequest}.
@@ -96,9 +96,9 @@ public class RecipeController {
      * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be deleted.
      * @return A {@code RecipeResponse} representing the result of the delete operation.
      */
-    @DeleteMapping("/admin")
-    public RecipeResponse deleteRecipe(@RequestBody RecipeRequest recipeBody) {
-        System.out.println("RecipeBody.getId() = " + recipeBody.getId());
-        return recipeService.deleteRecipe(recipeBody);
-    }
+//    @DeleteMapping("/admin")
+//    public RecipeResponse deleteRecipe(@RequestBody RecipeRequest recipeBody) {
+//        System.out.println("RecipeBody.getId() = " + recipeBody.getId());
+//        return recipeService.deleteRecipe(recipeBody);
+//    }
 }

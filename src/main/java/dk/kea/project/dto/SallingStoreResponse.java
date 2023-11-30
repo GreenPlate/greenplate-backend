@@ -1,5 +1,6 @@
 package dk.kea.project.dto;
 
+import dk.kea.project.entity.Store;
 import lombok.*;
 
 
@@ -14,7 +15,7 @@ public class SallingStoreResponse {
     private String name;
     private Address address;
 
-    @Getter
+   @Getter
     @Setter
     @NoArgsConstructor
      public static class Address{

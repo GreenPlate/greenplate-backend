@@ -6,7 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface StoreRepository extends JpaRepository<Store, String> {
-	List<Store> findByZipcode(String zipcode);
-
+		List<Store> findAllByZip(String zipcode);
 	}
 

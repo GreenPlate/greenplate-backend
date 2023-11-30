@@ -24,11 +24,11 @@ public class ProductService
 		RequestRepository requestRepository;
 
 		//SallingService sallingService;
-		public List<ProductResponse> getProducts( String storeId) {
-		    List<ProductResponse> productResponses = productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).toList();
-//		    return productRepository.findAllByStoreId(storeId, pageable).map(ProductResponse::new);
-			return productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).collect(Collectors.toList());
-		}
+//		public List<ProductResponse> getProducts( String storeId) {
+//		    List<ProductResponse> productResponses = productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).toList();
+////		    return productRepository.findAllByStoreId(storeId, pageable).map(ProductResponse::new);
+//			return productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).collect(Collectors.toList());
+//		}
 
 
 		public void addProduct(Product product) {
@@ -49,17 +49,17 @@ public class ProductService
 		 * @return boolean
 		 */
 
-		public boolean checkRequest(String id){
-			boolean requestExistsAndStillValid = false;
-			LocalDateTime now = LocalDateTime.now();
-
-			if(requestRepository.existsByStoreId(id) && requestRepository.findByStoreId(id).getExpires().isAfter(now)){
-				requestExistsAndStillValid=true;
-			}
-		    return requestExistsAndStillValid;
-		}
-		public Request findNewestRequest(String id, LocalDateTime nowMinus15){
-			return requestRepository.findRequestByStoreIdAndCreatedIsAfter(id, nowMinus15);
-		}
+//		public boolean checkRequest(String id){
+//			boolean requestExistsAndStillValid = false;
+//			LocalDateTime now = LocalDateTime.now();
+//
+//			if(requestRepository.existsByStoreId(id) && requestRepository.findByStoreId(id).getExpires().isAfter(now)){
+//				requestExistsAndStillValid=true;
+//			}
+//		    return requestExistsAndStillValid;
+//		}
+//		public Request findNewestRequest(String id, LocalDateTime nowMinus15){
+//			return requestRepository.findRequestByStoreIdAndCreatedIsAfter(id, nowMinus15);
+//		}
 	}
 

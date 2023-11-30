@@ -19,21 +19,32 @@ public class StoreService {
 		this.storeRepository = storeRepository;
 	}
 
-	public void addStore(Store store) {
-		storeRepository.save(store);
+	public void addStores(List<SallingStoreResponse> stores) {
+		System.out.println("addStores()");
+		List<Store> mappedStores = stores.stream().map(Store::new).collect(Collectors.toList());
+		List<Store> oldStores = storeRepository.findAll();
+		List<Store> filteredStores = filteredStore(mappedStores, oldStores);
+		storeRepository.saveAll(filteredStores);
+	}
+	public List<Store> filteredStore(List<Store> mappedStores, List<Store> oldStores){
+		System.out.println("filteredStores()");
+
+		List<Store> updatedStores = mappedStores.stream()
+				.filter(mappedStore -> oldStores.stream().noneMatch(oldStore -> oldStore.getId().equals(mappedStore.getId())))
+				.collect(Collectors.toList());
+		return updatedStores;
+	}
+	public boolean doesStoresExist(String zipcode){
+		List<Store> stores = storeRepository.findAllByZip(zipcode);
+		if(stores.isEmpty()){
+			return false;
+		}
+		return true;
 	}
 
-	public void addStores(List<Store> stores) {
-		storeRepository.saveAll(stores);
-	}
-	public List<SallingStoreResponse> getStores(String zipcode){
-		List<Store> stores = storeRepository.findByZipcode(zipcode);
-
-		return stores.stream().map(store -> (new SallingStoreResponse(store))).toList();
-
-
-//		return productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).collect(Collectors.toList());
-
+	public List<StoreResponse> getStores(String zipcode){
+		List<StoreResponse> stores = storeRepository.findAllByZip(zipcode).stream().map(StoreResponse::new).collect(Collectors.toList());
+		return stores;
 	}
 }
 

@@ -29,7 +29,7 @@ public class DeveloperData implements ApplicationRunner {
     user1.addRole(Role.USER);
     userRepository.save(user1);
 
-    Recipe recipe = new Recipe("Ostehapser", "Ostehapser er en lækker snack", "Ost, mel, æg, rasp", user1);
-    recipeRepository.save(recipe);
+//    Recipe recipe = new Recipe("Ostehapser", "Ostehapser er en lækker snack", "Ost, mel, æg, rasp", user1);
+//    recipeRepository.save(recipe);
     }
 }

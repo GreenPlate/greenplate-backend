@@ -21,7 +21,6 @@ public class ProductResponse
 		public double newPrice;
 		public double discount;
 		public double percentDiscount;
-		public String category;
 
 		public ProductResponse (Product product, Offer offer)
 		{

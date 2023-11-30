@@ -3,6 +3,7 @@ package dk.kea.project.entity;
 import dk.kea.project.dto.SallingStoreResponse;
 import jakarta.persistence.*;
 import lombok.*;
+import org.hibernate.dialect.aggregate.DB2AggregateSupport;
 
 @Getter
 @Setter

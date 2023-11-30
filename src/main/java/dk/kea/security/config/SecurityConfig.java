@@ -91,6 +91,7 @@ public class SecurityConfig {
             // RECIPE ENDPOINTS
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/recipes")).hasAuthority("USER")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/recipes/admin")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/admin")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/save-recipe")).hasAuthority("USER")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/save-recipe")).hasAuthority("ADMIN")
 

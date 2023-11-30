@@ -69,6 +69,10 @@ public class RecipeController {
         recipeService.saveRecipe(recipeBody);
     }
 
+    @PostMapping("/admin")
+    public void saveRecipeAdmin(@RequestBody RecipeRequest recipeBody) {
+        recipeService.saveRecipe(recipeBody);
+    }
     /**
      * Retrieves all recipes in the system.
      *

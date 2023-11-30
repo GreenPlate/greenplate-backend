@@ -26,12 +26,20 @@ public class ProductService
 		RequestRepository requestRepository;
 		OfferRepository offerRepository;
 
-		//SallingService sallingService;
-//		public List<ProductResponse> getProducts( String storeId) {
-//		    List<ProductResponse> productResponses = productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).toList();
-////		    return productRepository.findAllByStoreId(storeId, pageable).map(ProductResponse::new);
-//			return productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).collect(Collectors.toList());
-//		}
+		SallingService sallingService;
+
+		public ProductService(ProductRepository productRepository, RequestRepository requestRepository,
+									 OfferRepository offerRepository, SallingService sallingService) {
+			this.productRepository = productRepository;
+			this.requestRepository = requestRepository;
+			this.offerRepository = offerRepository;
+			this.sallingService = sallingService;
+		}
+
+		public List<ProductResponse> getProducts(int requestId) {
+
+		  return offerRepository.findAllByRequest_Id().stream().map(ProductResponse::new).collect(Collectors.toList());
+		}
 
 
 		public void addProduct(Product product) {
@@ -45,24 +53,7 @@ public class ProductService
 
 		}
 
-		/**
-		 * This method checks if a request exists and is still valid
-		 *
-		 * @param id : StoreId
-		 * @return boolean
-		 */
 
-//		public boolean checkRequest(String id){
-//			boolean requestExistsAndStillValid = false;
-//			LocalDateTime now = LocalDateTime.now();
-//
-//			if(requestRepository.existsByStoreId(id) && requestRepository.findByStoreId(id).getExpires().isAfter(now)){
-//				requestExistsAndStillValid=true;
-//			}
-//		    return requestExistsAndStillValid;
-//		}
-//		public Request findNewestRequest(String id, LocalDateTime nowMinus15){
-//			return requestRepository.findRequestByStoreIdAndCreatedIsAfter(id, nowMinus15);
-//		}
+
 	}
 

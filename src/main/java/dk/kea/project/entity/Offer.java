@@ -24,7 +24,6 @@ public class Offer {
 
 	@ManyToOne
 	@JoinColumn(name = "request_id")
-
 	Request request;
 
 

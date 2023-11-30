@@ -10,6 +10,7 @@ import dk.kea.project.entity.Request;
 import dk.kea.project.entity.Store;
 import dk.kea.project.repository.RequestRepository;
 import dk.kea.project.service.ProductService;
+import dk.kea.project.service.RequestService;
 import dk.kea.project.service.SallingService;
 import dk.kea.project.service.StoreService;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,56 +31,44 @@ public class StoreController {
     ProductService productService;
     RequestRepository requestRepository;
     StoreService storeService;
+    RequestService requestService;
+    OfferService offerService;
 
     public StoreController(SallingService sallingService,
                            ProductService productService,
                            RequestRepository requestRepository,
-                           StoreService storeService) {
+                           StoreService storeService,
+                           RequestService requestService) {
         this.storeService = storeService;
         this.productService = productService;
         this.requestRepository = requestRepository;
         this.sallingService = sallingService;
-
+        this.requestService = requestService;
     }
 
     @GetMapping
-    public List<StoreResponse> getStores(@RequestParam String zipcode){
+    public List<StoreResponse> getStores(@RequestParam String zipcode) {
         boolean doesStoreExist = storeService.doesStoresExist(zipcode);
-        if(!doesStoreExist) {
+        if (!doesStoreExist) {
             List<SallingStoreResponse> storesFromZip = sallingService.getStores(zipcode);
             storeService.addStores(storesFromZip);
         }
         return storeService.getStores(zipcode);
     }
 
-    @GetMapping("/foodwaste")
-    public List<SallingResponse> getFoodWaste(@RequestParam String id){
-        // kald salling service brug List<SallingResponse> i ny service
-        return sallingService.getFoodWaste(id);
-    }
+    @GetMapping("/clearance")
+    public List<ProductResponse> getProducts(@RequestParam String id){
+        // tjek if request is valid
 
-//    @GetMapping("/clearance")
-//    public List<ProductResponse> getProducts(@RequestParam String id){
-//        // check if request still is valid:
-//        if (productService.checkRequest(id)){
-//            return productService.getProducts(id);
-//        }
-//        else{
-//            //persist request in database: create new request
-//            Request request = new Request();
-//            request.setId(id);
-//            LocalDateTime now = LocalDateTime.now();
-//           // request.setCreated(now);
-//            productService.addRequest(request);
-//            int requestId = productService.findNewestRequest(id,now.minusMinutes(15)).getRequestId();
-//           List<SallingResponse> sallingResponse = sallingService.getFoodWaste(id);
-//         convertSallingResponse(sallingResponse, requestId, id);
-////            productService.addProducts(products);
-//
-//
-//        }
-//        return productService.getProducts(id);
-//    }
+        if(requestService.checkRequest(id)){
+            Request request = requestService.findRequestByStoreIdAndCreatedIsAfter(id, LocalDateTime.now().minusMinutes(15));
+            return productService.getProducts(request.getId());
+        }
+       Request request = new Request(storeService.findStoreById(id));
+        // else new request to Salling, persist in DB, retrieve from DB
+
+        return productService.getProducts(id);
+    }
 //    public List<ProductResponse> getProducts(@RequestParam String id){
 //        // check if request still is valid:
 //        if (productService.checkRequest(id)){

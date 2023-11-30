@@ -41,9 +41,13 @@ public class StoreController {
     }
 
     @GetMapping
-    public List<SallingStoreResponse> getStores(@RequestParam String zipcode){
+    public List<StoreResponse> getStores(@RequestParam String zipcode){
+        boolean doesStoreExist = storeService.doesStoresExist(zipcode);
+        if(!doesStoreExist) {
+            List<SallingStoreResponse> storesFromZip = sallingService.getStores(zipcode);
+            storeService.addStores(storesFromZip);
+        }
         return storeService.getStores(zipcode);
-        //return sallingService.getStores(zipcode);
     }
 
     @GetMapping("/foodwaste")

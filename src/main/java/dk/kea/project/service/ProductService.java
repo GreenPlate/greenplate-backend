@@ -1,6 +1,7 @@
 package dk.kea.project.service;
 
 import dk.kea.project.dto.ProductResponse;
+import dk.kea.project.dto.SallingResponse;
 import dk.kea.project.entity.Offer;
 import dk.kea.project.entity.Product;
 import dk.kea.project.entity.Request;
@@ -18,42 +19,43 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductService
-	{
+public class ProductService {
 
-		ProductRepository productRepository;
+	ProductRepository productRepository;
 
-		RequestRepository requestRepository;
-		OfferRepository offerRepository;
+	RequestRepository requestRepository;
+	OfferRepository offerRepository;
 
-		SallingService sallingService;
+	SallingService sallingService;
 
-		public ProductService(ProductRepository productRepository, RequestRepository requestRepository,
-									 OfferRepository offerRepository, SallingService sallingService) {
-			this.productRepository = productRepository;
-			this.requestRepository = requestRepository;
-			this.offerRepository = offerRepository;
-			this.sallingService = sallingService;
-		}
+	public ProductService(ProductRepository productRepository, RequestRepository requestRepository,
+								 OfferRepository offerRepository, SallingService sallingService) {
+		this.productRepository = productRepository;
+		this.requestRepository = requestRepository;
+		this.offerRepository = offerRepository;
+		this.sallingService = sallingService;
+	}
 
-		public List<ProductResponse> getProducts(int requestId) {
+	public List<ProductResponse> getProducts(int requestId) {
 
-		  return offerRepository.findAllByRequest_Id().stream().map(ProductResponse::new).collect(Collectors.toList());
-		}
-
-
-		public void addProduct(Product product) {
-		    productRepository.save(product);
-		}
-		public void addProducts(List<Product> products) {
-		    productRepository.saveAll(products);
-		}
-		public void addRequest(Request request){
-		    requestRepository.save(request);
-
-		}
+		return offerRepository.findAllByRequest_Id(requestId).stream().map(ProductResponse::new).collect(Collectors.toList());
+	}
 
 
+	public void addProduct(Product product) {
+		productRepository.save(product);
+	}
+
+	public void addOffers(List<Offer> offers) {
+		offerRepository.saveAll(offers);
+	}
+
+	public void getOffersfromSallingAndSave(String storeId, Request request) {
+		List<SallingResponse> sallingResponse = sallingService.getFoodWaste(storeId);
+		List<Offer> offers = sallingResponse.stream().flatMap(salling -> salling.getClearances().stream()).map(clearance -> new Offer(clearance.getOffer().getOriginalPrice(), clearance.getOffer().getNewPrice(), clearance.getOffer().getDiscount(), clearance.getOffer().getPercentDiscount(), new Product(clearance.getProduct().ean, clearance.getProduct().description, clearance.getProduct().image), request)).collect(Collectors.toList());
+		productRepository.saveAll(offers.stream().map(Offer::getProduct).collect(Collectors.toList()));
+		offerRepository.saveAll(offers);
 
 	}
+}
 

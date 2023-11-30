@@ -33,10 +33,13 @@ public  RequestService(RequestRepository requestRepository, StoreService storeSe
 	public Request findRequestByStoreIdAndCreatedIsAfter(String id, LocalDateTime nowMinus15){
 		return requestRepository.findRequestByStoreIdAndCreatedIsAfter(id, nowMinus15);
 	}
-	public List<SallingResponse> getFoodWaste(String id){
-		return requestRepository.findByStoreId(id);
-	}
+//	public List<SallingResponse> getFoodWaste(String id){
+//		return requestRepository.findByStoreId(id);
+//	}
+	public void addRequest(Request request){
+		requestRepository.save(request);
 
+	}
 //	// check if request still is valid:
 //        if (productService.checkRequest(id)){
 //		return productService.getProducts(id);

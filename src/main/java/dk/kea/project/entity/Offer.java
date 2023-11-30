@@ -1,5 +1,6 @@
 package dk.kea.project.entity;
 
+import dk.kea.project.dto.SallingResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -18,7 +19,7 @@ public class Offer {
 	private double discount;
 	private double percentDiscount;
 
-	@ManyToOne (fetch = FetchType.EAGER)
+	@ManyToOne ( fetch = FetchType.EAGER)
 	@JoinColumn(name="ean")
 	Product product;
 
@@ -36,4 +37,12 @@ public class Offer {
 		this.percentDiscount = percentDiscount;
 	}
 
+	public Offer(double originalPrice, double newPrice, double discount, double percentDiscount, Product product, Request request) {
+		this.originalPrice = originalPrice;
+		this.newPrice = newPrice;
+		this.discount = discount;
+		this.percentDiscount = percentDiscount;
+		this.product = product;
+		this.request = request;
+	}
 }

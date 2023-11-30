@@ -32,7 +32,7 @@ public class StoreController {
     RequestRepository requestRepository;
     StoreService storeService;
     RequestService requestService;
-    OfferService offerService;
+
 
     public StoreController(SallingService sallingService,
                            ProductService productService,
@@ -64,10 +64,12 @@ public class StoreController {
             Request request = requestService.findRequestByStoreIdAndCreatedIsAfter(id, LocalDateTime.now().minusMinutes(15));
             return productService.getProducts(request.getId());
         }
-       Request request = new Request(storeService.findStoreById(id));
         // else new request to Salling, persist in DB, retrieve from DB
+        Request request = new Request(storeService.findStoreById(id));
+         requestService.addRequest(request);
 
-        return productService.getProducts(id);
+        productService.getOffersfromSallingAndSave(id, request);
+        return productService.getProducts(request.getId());
     }
 //    public List<ProductResponse> getProducts(@RequestParam String id){
 //        // check if request still is valid:

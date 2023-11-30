@@ -7,5 +7,5 @@ import java.util.List;
 
 public interface OfferRepository extends JpaRepository<Offer,Integer> {
 
-	List<Offer> findAllByRequest_Id();
+	List<Offer> findAllByRequest_Id(int requestId);
 }

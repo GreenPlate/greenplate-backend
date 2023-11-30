@@ -4,6 +4,7 @@ import dk.kea.project.dto.ProductResponse;
 import dk.kea.project.dto.SallingResponse;
 import dk.kea.project.dto.SallingStoreResponse;
 import dk.kea.project.dto.StoreResponse;
+import dk.kea.project.entity.Offer;
 import dk.kea.project.entity.Product;
 import dk.kea.project.entity.Request;
 import dk.kea.project.entity.Store;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api/stores")

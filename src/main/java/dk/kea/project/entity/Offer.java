@@ -18,7 +18,7 @@ public class Offer {
 	private double discount;
 	private double percentDiscount;
 
-	@ManyToOne
+	@ManyToOne (fetch = FetchType.EAGER)
 	@JoinColumn(name="ean")
 	Product product;
 

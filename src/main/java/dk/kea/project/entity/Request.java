@@ -22,6 +22,10 @@ public class Request {
 	@CreationTimestamp
 	LocalDateTime created;
 
+	public Request(Store store) {
+		this.store = store;
+	}
+
 	public LocalDateTime getExpires() {
 		return created.plusMinutes(15);
 	}

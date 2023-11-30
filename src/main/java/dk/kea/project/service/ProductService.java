@@ -1,8 +1,10 @@
 package dk.kea.project.service;
 
 import dk.kea.project.dto.ProductResponse;
+import dk.kea.project.entity.Offer;
 import dk.kea.project.entity.Product;
 import dk.kea.project.entity.Request;
+import dk.kea.project.repository.OfferRepository;
 import dk.kea.project.repository.ProductRepository;
 import dk.kea.project.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,11 @@ import java.util.stream.Collectors;
 @Service
 public class ProductService
 	{
-		@Autowired
+
 		ProductRepository productRepository;
-		@Autowired
+
 		RequestRepository requestRepository;
+		OfferRepository offerRepository;
 
 		//SallingService sallingService;
 //		public List<ProductResponse> getProducts( String storeId) {

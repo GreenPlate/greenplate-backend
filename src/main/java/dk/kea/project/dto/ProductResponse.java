@@ -22,11 +22,11 @@ public class ProductResponse
 		public double discount;
 		public double percentDiscount;
 
-		public ProductResponse (Product product, Offer offer)
+		public ProductResponse ( Offer offer)
 		{
-		    this.description = product.getDescription();
-		    this.ean = product.getEan();
-		    this.image = product.getImage();
+		    this.description = offer.getProduct().getDescription();
+		    this.ean = offer.getProduct().getEan();
+		    this.image = offer.getProduct().getImage();
 		    this.originalPrice = offer.getOriginalPrice();
 		    this.newPrice = offer.getNewPrice();
 		    this.discount = offer.getDiscount();

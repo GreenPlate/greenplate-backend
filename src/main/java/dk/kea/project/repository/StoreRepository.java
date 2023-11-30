@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface StoreRepository extends JpaRepository<Store, String> {
 		List<Store> findAllByZip(String zipcode);
+		Store findStoreById(String id);
 	}
 

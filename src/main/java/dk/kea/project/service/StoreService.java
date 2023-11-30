@@ -46,6 +46,10 @@ public class StoreService {
 		List<StoreResponse> stores = storeRepository.findAllByZip(zipcode).stream().map(StoreResponse::new).collect(Collectors.toList());
 		return stores;
 	}
+	public Store findStoreById(String id){
+		return storeRepository.findStoreById(id);
+
+	}
 }
 
 

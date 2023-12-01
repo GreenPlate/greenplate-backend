@@ -3,8 +3,6 @@ package dk.kea.project.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
-
-import java.time.Instant;
 import java.time.LocalDateTime;
 
 @Getter
@@ -13,18 +11,22 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Request
-	{
-		@Id
-		@GeneratedValue(strategy = GenerationType.IDENTITY)
-		int requestId;
+public class Request {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-		@JoinColumn(name = "storeId")
-		String storeId;
-		@CreationTimestamp
-		LocalDateTime created;
+	@ManyToOne
+	@JoinColumn(name = "store_id")
+	Store store;
+	@CreationTimestamp
+	LocalDateTime created;
 
-		public LocalDateTime getExpires() {
-			return created.plusMinutes(15);
-		}
+	public Request(Store store) {
+		this.store = store;
 	}
+
+	public LocalDateTime getExpires() {
+		return created.plusMinutes(15);
+	}
+}

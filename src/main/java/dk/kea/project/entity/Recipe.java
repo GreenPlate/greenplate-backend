@@ -3,6 +3,8 @@ package dk.kea.project.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Setter
 @Builder
@@ -16,15 +18,15 @@ public class Recipe {
     private String recipeTitle;
     @Column(length = 3000)
     private String recipeBody;
-    private String recipeIngredients;
 
-    @ManyToOne
+    @JoinColumn(name = "user_id")
     private User user;
 
-    public Recipe(String recipeTitle, String recipeBody, String recipeIngredients, User user){
+    @ManyToMany
+    List<Offer> offer;
+
+    public Recipe(String recipeTitle, String recipeBody){
         this.recipeTitle = recipeTitle;
         this.recipeBody = recipeBody;
-        this.recipeIngredients = recipeIngredients;
-        this.user = user;
     }
 }

@@ -1,6 +1,9 @@
 package dk.kea.project.dto;
 
+import dk.kea.project.entity.Offer;
 import lombok.*;
+
+import java.util.List;
 
 /**
  * Represents a request object for managing recipes.
@@ -31,7 +34,7 @@ public class RecipeRequest {
     /**
      * The ingredients used in the recipe.
      */
-    private String recipeIngredients;
+    private List<Offer> offers;
 
     /**
      * Creates a new {@code RecipeRequest} with the specified title, body, and ingredients.
@@ -40,9 +43,9 @@ public class RecipeRequest {
      * @param recipeBody        The body or content of the recipe.
      * @param recipeIngredients The ingredients used in the recipe.
      */
-    public RecipeRequest(String recipeTitle, String recipeBody, String recipeIngredients) {
+    public RecipeRequest(String recipeTitle, String recipeBody, List<Offer> offers) {
         this.recipeTitle = recipeTitle;
         this.recipeBody = recipeBody;
-        this.recipeIngredients = recipeIngredients;
+        this.offers = offers;
     }
 }

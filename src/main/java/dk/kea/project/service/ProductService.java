@@ -1,8 +1,11 @@
 package dk.kea.project.service;
 
 import dk.kea.project.dto.ProductResponse;
+import dk.kea.project.dto.SallingResponse;
+import dk.kea.project.entity.Offer;
 import dk.kea.project.entity.Product;
 import dk.kea.project.entity.Request;
+import dk.kea.project.repository.OfferRepository;
 import dk.kea.project.repository.ProductRepository;
 import dk.kea.project.repository.RequestRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,50 +19,43 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductService
-	{
-		@Autowired
-		ProductRepository productRepository;
-		@Autowired
-		RequestRepository requestRepository;
+public class ProductService {
 
-		//SallingService sallingService;
-		public List<ProductResponse> getProducts( String storeId) {
-		    List<ProductResponse> productResponses = productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).toList();
-//		    return productRepository.findAllByStoreId(storeId, pageable).map(ProductResponse::new);
-			return productRepository.findAllByStoreId(storeId).stream().map(ProductResponse::new).collect(Collectors.toList());
-		}
+	ProductRepository productRepository;
 
+	RequestRepository requestRepository;
+	OfferRepository offerRepository;
 
-		public void addProduct(Product product) {
-		    productRepository.save(product);
-		}
-		public void addProducts(List<Product> products) {
-		    productRepository.saveAll(products);
-		}
-		public void addRequest(Request request){
-		    requestRepository.save(request);
+	SallingService sallingService;
 
-		}
-
-		/**
-		 * This method checks if a request exists and is still valid
-		 *
-		 * @param id : StoreId
-		 * @return boolean
-		 */
-
-		public boolean checkRequest(String id){
-			boolean requestExistsAndStillValid = false;
-			LocalDateTime now = LocalDateTime.now();
-
-			if(requestRepository.existsByStoreId(id) && requestRepository.findByStoreId(id).getExpires().isAfter(now)){
-				requestExistsAndStillValid=true;
-			}
-		    return requestExistsAndStillValid;
-		}
-		public Request findNewestRequest(String id, LocalDateTime nowMinus15){
-			return requestRepository.findRequestByStoreIdAndCreatedIsAfter(id, nowMinus15);
-		}
+	public ProductService(ProductRepository productRepository, RequestRepository requestRepository,
+								 OfferRepository offerRepository, SallingService sallingService) {
+		this.productRepository = productRepository;
+		this.requestRepository = requestRepository;
+		this.offerRepository = offerRepository;
+		this.sallingService = sallingService;
 	}
+
+	public List<ProductResponse> getProducts(int requestId) {
+
+		return offerRepository.findAllByRequest_Id(requestId).stream().map(ProductResponse::new).collect(Collectors.toList());
+	}
+
+
+	public void addProduct(Product product) {
+		productRepository.save(product);
+	}
+
+	public void addOffers(List<Offer> offers) {
+		offerRepository.saveAll(offers);
+	}
+
+	public void getOffersfromSallingAndSave(String storeId, Request request) {
+		List<SallingResponse> sallingResponse = sallingService.getFoodWaste(storeId);
+		List<Offer> offers = sallingResponse.stream().flatMap(salling -> salling.getClearances().stream()).map(clearance -> new Offer(clearance.getOffer().getOriginalPrice(), clearance.getOffer().getNewPrice(), clearance.getOffer().getDiscount(), clearance.getOffer().getPercentDiscount(), new Product(clearance.getProduct().ean, clearance.getProduct().description, clearance.getProduct().image), request)).collect(Collectors.toList());
+		productRepository.saveAll(offers.stream().map(Offer::getProduct).collect(Collectors.toList()));
+		offerRepository.saveAll(offers);
+
+	}
+}
 

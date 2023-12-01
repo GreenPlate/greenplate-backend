@@ -39,10 +39,10 @@ public class RecipeResponse {
      *
      * @param recipe The {@code Recipe} entity from which to extract data.
      */
-    public RecipeResponse(Recipe recipe) {
-        this.id = recipe.getId();
-        this.recipeTitle = recipe.getRecipeTitle();
-        this.recipeBody = recipe.getRecipeBody();
-        this.recipeIngredients = recipe.getRecipeIngredients();
-    }
+//    public RecipeResponse(Recipe recipe) {
+//        this.id = recipe.getId();
+//        this.recipeTitle = recipe.getRecipeTitle();
+//        this.recipeBody = recipe.getRecipeBody();
+//        this.recipeIngredients = recipe.getRecipeIngredients();
+//    }
 }

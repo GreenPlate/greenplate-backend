@@ -20,8 +20,7 @@ public class User extends UserWithRoles {
     private String firstName;
     @Column(nullable = false, length = 55)
     private String lastName;
-    @OneToMany(mappedBy = "user")
-    private List<Recipe> recipes = new ArrayList<>();
+
     public User(String username, String email, String password, String firstName, String lastName){
         super(username, password, email);
         this.firstName = firstName;

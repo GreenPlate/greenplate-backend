@@ -84,10 +84,14 @@ public class SecurityConfig {
 
             // STORES ENDPOINTS
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/stores")).permitAll()
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/stores/all")).permitAll()
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/stores/foodwaste")).permitAll()
+          .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/stores/clearance")).permitAll()
 
             // RECIPE ENDPOINTS
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/recipes")).hasAuthority("USER")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/recipes/admin")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/admin")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/save-recipe")).hasAuthority("USER")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/save-recipe")).hasAuthority("ADMIN")
 

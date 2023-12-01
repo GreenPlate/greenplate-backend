@@ -1,7 +1,9 @@
 package dk.kea.project.api;
 
+import dk.kea.project.dto.ChatRecipeResponse;
 import dk.kea.project.dto.MyRecipe;
 import dk.kea.project.dto.RecipeRequest;
+import dk.kea.project.dto.RecipeResponse;
 import dk.kea.project.service.OpenAIService;
 import dk.kea.project.service.RecipeService;
 import io.github.bucket4j.Bandwidth;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 
+import java.security.Principal;
 import java.time.Duration;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -60,8 +64,46 @@ public class RecipeController {
         MyRecipe myRecipe = openAIService.makeRequest(ingredients, SYSTEM_MESSAGE);
         return myRecipe;
     }
+
     @PostMapping("/save-recipe")
-    public void saveRecipe(@RequestBody RecipeRequest recipeBody) {
-        recipeService.saveRecipe(recipeBody);
+    public void saveRecipe(@RequestBody RecipeRequest recipeBody, Principal principal) {
+        recipeService.saveRecipe(recipeBody, principal);
     }
+
+//    @PostMapping("/admin")
+//    public void saveRecipeAdmin(@RequestBody RecipeRequest recipeBody) {
+//        recipeService.saveRecipe(recipeBody);
+//    }
+    /**
+     * Retrieves all recipes in the system.
+     *
+     * @return A list of {@code RecipeResponse} representing the recipes.
+     */
+//    @GetMapping("/admin")
+//    public List<RecipeResponse> getRecipes() {
+//        return recipeService.getAllRecipes();
+//    }
+
+    /**
+     * Updates a recipe based on the provided {@code RecipeRequest}.
+     *
+     * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be updated.
+     * @return A {@code RecipeResponse} representing the result of the update operation.
+     */
+//    @PatchMapping("/admin")
+//    public RecipeResponse updateRecipe(@RequestBody RecipeRequest recipeBody) {
+//        return recipeService.updateRecipe(recipeBody);
+//    }
+
+    /**
+     * Deletes a recipe based on the provided {@code RecipeRequest}.
+     *
+     * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be deleted.
+     * @return A {@code RecipeResponse} representing the result of the delete operation.
+     */
+//    @DeleteMapping("/admin")
+//    public RecipeResponse deleteRecipe(@RequestBody RecipeRequest recipeBody) {
+//        System.out.println("RecipeBody.getId() = " + recipeBody.getId());
+//        return recipeService.deleteRecipe(recipeBody);
+//    }
 }

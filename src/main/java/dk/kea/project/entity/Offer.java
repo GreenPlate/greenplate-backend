@@ -1,5 +1,6 @@
 package dk.kea.project.entity;
 
+import dk.kea.project.dto.ProductResponse;
 import dk.kea.project.dto.SallingResponse;
 import jakarta.persistence.*;
 import lombok.*;

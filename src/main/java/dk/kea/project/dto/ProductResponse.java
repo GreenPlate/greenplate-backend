@@ -21,9 +21,9 @@ public class ProductResponse
 		public double newPrice;
 		public double discount;
 		public double percentDiscount;
+		public int id;
 
-		public ProductResponse ( Offer offer)
-		{
+		public ProductResponse (Offer offer) {
 		    this.description = offer.getProduct().getDescription();
 		    this.ean = offer.getProduct().getEan();
 		    this.image = offer.getProduct().getImage();
@@ -31,5 +31,6 @@ public class ProductResponse
 		    this.newPrice = offer.getNewPrice();
 		    this.discount = offer.getDiscount();
 		    this.percentDiscount = offer.getPercentDiscount();
+			this.id = offer.getId();
 		}
 	}

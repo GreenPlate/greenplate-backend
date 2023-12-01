@@ -2,10 +2,14 @@ package dk.kea.project.service;
 
 import dk.kea.project.dto.RecipeRequest;
 import dk.kea.project.dto.RecipeResponse;
+import dk.kea.project.entity.Offer;
 import dk.kea.project.entity.Recipe;
+import dk.kea.project.repository.OfferRepository;
 import dk.kea.project.repository.RecipeRepository;
+import dk.kea.project.repository.UserRepository;
 import org.springframework.stereotype.Service;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,18 +17,24 @@ import java.util.Optional;
 @Service
 public class RecipeService {
     RecipeRepository recipeRepository;
+    OfferRepository offerRepository;
+    UserRepository userRepository;
 
-    public RecipeService(RecipeRepository recipeRepository) {
-        this.recipeRepository = recipeRepository;
+    public RecipeService(RecipeRepository recipeRepository, OfferRepository offerRepository, UserRepository userRepository) {
+         this.recipeRepository = recipeRepository;
+         this.offerRepository = offerRepository;
+         this.userRepository = userRepository;
     }
 
-//    public void saveRecipe(RecipeRequest recipeRequest) {
-//        Recipe recipe = new Recipe();
-//        recipe.setRecipeIngredients(recipeRequest.getRecipeIngredients());
-//        recipe.setRecipeBody(recipeRequest.getRecipeBody());
-//        recipe.setRecipeTitle(recipeRequest.getRecipeTitle());
-//        recipeRepository.save(recipe);
-//    }
+    public void saveRecipe(RecipeRequest recipeRequest, Principal principal) {
+        Recipe recipe = new Recipe();
+        recipe.setRecipeBody(recipeRequest.getRecipeBody());
+        recipe.setRecipeTitle(recipeRequest.getRecipeTitle());
+        List<Offer> offers = recipeRequest.getOffers().stream().map(offer -> offerRepository.findAllById(offer.getId())).toList();
+        recipe.setOffers(offers);
+        recipe.setUser(userRepository.findUserByUsername(principal.getName()));
+        recipeRepository.save(recipe);
+    }
 
     /**
      * Retrieves all recipes from the repository and converts them into a list of {@code RecipeResponse}.

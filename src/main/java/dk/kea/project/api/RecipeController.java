@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 
+import java.security.Principal;
 import java.time.Duration;
 import java.util.List;
 import java.util.Map;
@@ -51,28 +52,28 @@ public class RecipeController {
         this.openAIService = openAIService;
         this.recipeService = recipeService;
     }
-//    @PostMapping()
-//    public MyRecipe makeRequest(@RequestBody String ingredients, HttpServletRequest request) {
-//        String ip = request.getRemoteAddr();
-//        Bucket bucket = getBucket(ip);
-//
-//        if (!bucket.tryConsume(1)) {
-//            System.out.println("Too many requests, try again later");
-//            throw new ResponseStatusException(HttpStatus.TOO_MANY_REQUESTS, "Too many requests, try again later");
-//        }
-//        MyRecipe myRecipe = openAIService.makeRequest(ingredients, SYSTEM_MESSAGE);
-//        return myRecipe;
-//    }
+    @PostMapping()
+    public MyRecipe makeRequest(@RequestBody String ingredients, HttpServletRequest request) {
+        String ip = request.getRemoteAddr();
+        Bucket bucket = getBucket(ip);
 
-//    @PostMapping("/save-recipe")
-//    public void saveRecipe(@RequestBody RecipeRequest recipeBody) {
+        if (!bucket.tryConsume(1)) {
+            System.out.println("Too many requests, try again later");
+            throw new ResponseStatusException(HttpStatus.TOO_MANY_REQUESTS, "Too many requests, try again later");
+        }
+        MyRecipe myRecipe = openAIService.makeRequest(ingredients, SYSTEM_MESSAGE);
+        return myRecipe;
+    }
+
+    @PostMapping("/save-recipe")
+    public void saveRecipe(@RequestBody RecipeRequest recipeBody, Principal principal) {
+        recipeService.saveRecipe(recipeBody, principal);
+    }
+
+//    @PostMapping("/admin")
+//    public void saveRecipeAdmin(@RequestBody RecipeRequest recipeBody) {
 //        recipeService.saveRecipe(recipeBody);
 //    }
-
-    @PostMapping("/admin")
-    public void saveRecipeAdmin(@RequestBody RecipeRequest recipeBody) {
-        recipeService.saveRecipe(recipeBody);
-    }
     /**
      * Retrieves all recipes in the system.
      *

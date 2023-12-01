@@ -5,6 +5,7 @@ import lombok.*;
 
 import java.util.List;
 
+@SuppressWarnings("ALL")
 @Getter
 @Setter
 @Builder
@@ -19,14 +20,16 @@ public class Recipe {
     @Column(length = 3000)
     private String recipeBody;
 
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
     @ManyToMany
-    List<Offer> offer;
+    List<Offer> offers;
 
-    public Recipe(String recipeTitle, String recipeBody){
+    public Recipe(String recipeTitle, String recipeBody, List<Offer> offers){
         this.recipeTitle = recipeTitle;
         this.recipeBody = recipeBody;
+        this.offers = offers;
     }
 }

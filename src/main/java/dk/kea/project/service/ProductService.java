@@ -57,5 +57,8 @@ public class ProductService {
 		offerRepository.saveAll(offers);
 
 	}
+	public List<Product> getAllProducts() {
+		return productRepository.findAll();
+	}
 }
 

@@ -49,6 +49,7 @@ public class StoreService {
 	public Store findStoreById(String id){
 		return storeRepository.findStoreById(id);
 	}
+	
 }
 
 

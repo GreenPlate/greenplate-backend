@@ -1,9 +1,6 @@
 package dk.kea.project.api;
 
-import dk.kea.project.dto.ProductResponse;
-import dk.kea.project.dto.SallingResponse;
-import dk.kea.project.dto.SallingStoreResponse;
-import dk.kea.project.dto.StoreResponse;
+import dk.kea.project.dto.*;
 import dk.kea.project.entity.Offer;
 import dk.kea.project.entity.Product;
 import dk.kea.project.entity.Request;
@@ -113,6 +110,11 @@ public class StoreController {
 //        });
 //        productService.addProducts(products);
 //    }
+    @GetMapping("/count")
+    public List<StoreCountResponse> getStoreCount(){
+        System.out.println("countStoreCalls()");
+        return requestService.countStoreCalls();
+    }
 }
 
 

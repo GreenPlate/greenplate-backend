@@ -68,10 +68,9 @@ public class StoreController {
         return productService.getProducts(request.getId());
     }
     @GetMapping("/products")
-    public List<Offer> getAllOffers(){
-        return productService.getAllOffers();
+    public List<Object[]> OfferDetailsWithProductDescription(){
+        return productService.getAllOffersWithProductDescription();
     }
-
 
 //    public List<ProductResponse> getProducts(@RequestParam String id){
 //        // check if request still is valid:

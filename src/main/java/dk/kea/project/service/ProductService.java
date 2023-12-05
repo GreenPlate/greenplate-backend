@@ -8,13 +8,8 @@ import dk.kea.project.entity.Request;
 import dk.kea.project.repository.OfferRepository;
 import dk.kea.project.repository.ProductRepository;
 import dk.kea.project.repository.RequestRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties;
-import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
-import org.springframework.data.domain.Pageable;
 
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,7 +24,7 @@ public class ProductService {
 	SallingService sallingService;
 
 	public ProductService(ProductRepository productRepository, RequestRepository requestRepository,
-								 OfferRepository offerRepository, SallingService sallingService) {
+						  OfferRepository offerRepository, SallingService sallingService) {
 		this.productRepository = productRepository;
 		this.requestRepository = requestRepository;
 		this.offerRepository = offerRepository;
@@ -62,8 +57,8 @@ public class ProductService {
 		offerRepository.saveAll(offers);
 
 	}
-	public List<Offer> getAllOffers(){
-		return offerRepository.findAll();
+	public List<Object[]> getAllOffersWithProductDescription() {
+		return offerRepository.getAllOfferDetailsWithProductDescription();
 	}
 }
 

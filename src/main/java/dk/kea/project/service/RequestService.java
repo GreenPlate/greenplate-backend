@@ -2,6 +2,7 @@ package dk.kea.project.service;
 
 import dk.kea.project.dto.SallingResponse;
 import dk.kea.project.dto.StoreCountResponse;
+import dk.kea.project.dto.ZipcodeCountResponse;
 import dk.kea.project.entity.Request;
 import dk.kea.project.repository.RequestRepository;
 import org.springframework.stereotype.Service;
@@ -61,29 +62,35 @@ public  RequestService(RequestRepository requestRepository, StoreService storeSe
 //
 //	}
 
-	public List<StoreCountResponse> countStoreCalls(){
-		int count = 0;
-		
+	public List<StoreCountResponse> countStoreCalls(){		
 		List<Object[]> result = requestRepository.countStoreCalls();
-		
 		List<StoreCountResponse> storeCountResponses = new ArrayList<>();
 
 		for (Object[] row : result) {
-			// Assuming that the types are String for the first two elements
 			String storeId = (String) row[0];
 			String storeName = (String) row[1];
 			Long storeCount = (Long) row[2];
 			
-
-			// Ensure you use the correct indices and types
-			System.out.println("Store ID: " + storeId);
-			System.out.println("Store Name: " + storeName);
-			System.out.println("Store Count: " + storeCount);
-
 			StoreCountResponse newResponse = new StoreCountResponse(storeId, storeName, storeCount);
 			storeCountResponses.add(newResponse);
 		}
 		return storeCountResponses;
 	}
+	
+	public List<ZipcodeCountResponse> countZipcodeCalls(){
+		List<Object[]> result = requestRepository.countZipcodeCalls();
+		List<ZipcodeCountResponse> zipcodeCountResponses = new ArrayList<>();
+		
+		for(Object[] row : result){
+			String zipcode = (String) row[0];
+			Long count = (Long) row[1];
+			
+			ZipcodeCountResponse newZipcodeCountResponse = new ZipcodeCountResponse(zipcode, count);
+			zipcodeCountResponses.add(newZipcodeCountResponse);
+		}
+		
+		return zipcodeCountResponses;
+	}
+	
 	
 }

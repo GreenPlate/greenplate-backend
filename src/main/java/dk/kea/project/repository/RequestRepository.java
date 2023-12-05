@@ -15,4 +15,11 @@ public interface RequestRepository extends JpaRepository<Request, Integer> {
 			"FROM Store s LEFT JOIN Request r ON s.id = r.store.id " +
 			"GROUP BY s.id, s.name")
 	List<Object[]> countStoreCalls();
+
+	@Query("SELECT s.zip, COUNT(r) AS callCount " +
+			"FROM Store s LEFT JOIN Request r ON s.id = r.store.id " +
+			"GROUP BY s.zip")
+	List<Object[]> countZipcodeCalls();
 }
+
+

@@ -110,10 +110,16 @@ public class StoreController {
 //        });
 //        productService.addProducts(products);
 //    }
-    @GetMapping("/count")
+    @GetMapping("/countstorecalls")
     public List<StoreCountResponse> getStoreCount(){
         System.out.println("countStoreCalls()");
         return requestService.countStoreCalls();
+    }
+    
+    @GetMapping("/countzipcodecalls")
+    public List<ZipcodeCountResponse> getZipcodeCount(){
+        System.out.println("getZipcodeCount()");
+        return requestService.countZipcodeCalls();
     }
 }
 

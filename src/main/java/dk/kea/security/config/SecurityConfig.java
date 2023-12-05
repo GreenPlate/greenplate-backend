@@ -97,6 +97,8 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/save-recipe")).hasAuthority("USER")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/save-recipe")).hasAuthority("ADMIN")
 
+            // PRODUCT CONTROLLER
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/products/count")).permitAll()
 
 
             //Use this to completely disable security (Will not work if endpoints has been marked with @PreAuthorize)

@@ -1,5 +1,6 @@
 package dk.kea.project.service;
 
+import dk.kea.project.dto.ProductCountResponse;
 import dk.kea.project.dto.ProductResponse;
 import dk.kea.project.dto.SallingResponse;
 import dk.kea.project.entity.Offer;
@@ -56,6 +57,18 @@ public class ProductService {
 		productRepository.saveAll(offers.stream().map(Offer::getProduct).collect(Collectors.toList()));
 		offerRepository.saveAll(offers);
 
+	}
+	
+	public List<ProductCountResponse> getProductCount(){
+		List<Object[]> result = productRepository.getProductCount();
+
+		return result.stream()
+				.map(row -> new ProductCountResponse(
+						(String) row[0], // Assuming productEan is of type String
+						(String) row[1], // Assuming productName is of type String
+						((Number) row[2]).longValue() // Assuming usageCount is of type Long
+				))
+				.collect(Collectors.toList());
 	}
 }
 

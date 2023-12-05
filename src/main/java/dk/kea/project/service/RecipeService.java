@@ -36,6 +36,9 @@ public class RecipeService {
         recipeRepository.save(recipe);
     }
 
+    public void saveRecipeAdmin(RecipeRequest recipeRequest) {
+
+    }
     /**
      * Retrieves all recipes from the repository and converts them into a list of {@code RecipeResponse}.
      *

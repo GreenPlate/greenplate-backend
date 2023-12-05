@@ -52,13 +52,18 @@ public class ProductService {
 
 	public void getOffersfromSallingAndSave(String storeId, Request request) {
 		List<SallingResponse> sallingResponse = sallingService.getFoodWaste(storeId);
-		List<Offer> offers = sallingResponse.stream().flatMap(salling -> salling.getClearances().stream()).map(clearance -> new Offer(clearance.getOffer().getOriginalPrice(), clearance.getOffer().getNewPrice(), clearance.getOffer().getDiscount(), clearance.getOffer().getPercentDiscount(), new Product(clearance.getProduct().ean, clearance.getProduct().description, clearance.getProduct().image), request)).collect(Collectors.toList());
+		List<Offer> offers = sallingResponse.stream().flatMap(salling -> salling.getClearances().stream()).map(clearance ->
+				new Offer(clearance.getOffer().getOriginalPrice(), clearance.getOffer().getNewPrice(),
+						clearance.getOffer().getDiscount(), clearance.getOffer().getPercentDiscount(),
+						new Product(clearance.getProduct().ean, clearance.getProduct().description,
+								clearance.getProduct().image), request)).collect(Collectors.toList());
+
 		productRepository.saveAll(offers.stream().map(Offer::getProduct).collect(Collectors.toList()));
 		offerRepository.saveAll(offers);
 
 	}
-	public List<Product> getAllProducts() {
-		return productRepository.findAllByOrderByDescriptionAsc();
+	public List<Offer> getAllOffers(){
+		return offerRepository.findAll();
 	}
 }
 

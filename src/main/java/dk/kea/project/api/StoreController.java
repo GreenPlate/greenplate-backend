@@ -3,6 +3,7 @@ package dk.kea.project.api;
 import dk.kea.project.dto.ProductResponse;
 import dk.kea.project.dto.SallingStoreResponse;
 import dk.kea.project.dto.StoreResponse;
+import dk.kea.project.entity.Offer;
 import dk.kea.project.entity.Product;
 import dk.kea.project.entity.Request;
 import dk.kea.project.repository.RequestRepository;
@@ -67,8 +68,8 @@ public class StoreController {
         return productService.getProducts(request.getId());
     }
     @GetMapping("/products")
-    public List<Product> getAllProducts() {
-        return productService.getAllProducts();
+    public List<Offer> getAllOffers(){
+        return productService.getAllOffers();
     }
 
 

@@ -68,7 +68,9 @@ public class DeveloperData implements ApplicationRunner {
     // Create and save recipes
     Recipe recipe1 = new Recipe("Recipe 1", "Recipe body 1", user1, List.of(offer1, offer2));
     Recipe recipe2 = new Recipe("Recipe 2", "Recipe body 2", user1, List.of(offer1, offer3));
-    recipeRepository.saveAll(List.of(recipe1, recipe2));
+    Recipe recipe3 = new Recipe("Recipe 2", "Recipe body 2", admin1, List.of(offer1, offer3));
+    Recipe recipe4 = new Recipe("Recipe 2", "Recipe body 2", admin1, List.of(offer1, offer3));
+    recipeRepository.saveAll(List.of(recipe1, recipe2, recipe3, recipe4));
 
 
 

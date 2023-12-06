@@ -28,21 +28,15 @@ public class RecipeResponse {
      * The body or content of the recipe.
      */
     private String recipeBody;
-
-    /**
-     * The ingredients used in the recipe.
-     */
-    private String recipeIngredients;
-
+    
     /**
      * Creates a new {@code RecipeResponse} based on the provided {@code Recipe} entity.
      *
      * @param recipe The {@code Recipe} entity from which to extract data.
      */
-//    public RecipeResponse(Recipe recipe) {
-//        this.id = recipe.getId();
-//        this.recipeTitle = recipe.getRecipeTitle();
-//        this.recipeBody = recipe.getRecipeBody();
-//        this.recipeIngredients = recipe.getRecipeIngredients();
-//    }
+    public RecipeResponse(Recipe recipe) {
+        this.id = recipe.getId();
+        this.recipeTitle = recipe.getRecipeTitle();
+        this.recipeBody = recipe.getRecipeBody();
+    }
 }

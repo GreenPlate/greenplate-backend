@@ -4,6 +4,7 @@ import dk.kea.project.dto.RecipeRequest;
 import dk.kea.project.dto.RecipeResponse;
 import dk.kea.project.entity.Offer;
 import dk.kea.project.entity.Recipe;
+import dk.kea.project.entity.User;
 import dk.kea.project.repository.OfferRepository;
 import dk.kea.project.repository.RecipeRepository;
 import dk.kea.project.repository.UserRepository;
@@ -47,12 +48,13 @@ public class RecipeService {
      *
      * @return A list of {@code RecipeResponse} representing all the recipes.
      */
-//    public List<RecipeResponse> getAllRecipes() {
-//        List<Recipe> recipes = recipeRepository.findAll();
-//        List<RecipeResponse> response = recipes.stream().map(RecipeResponse::new).toList();
-//
-//        return response;
-//    }
+    public List<RecipeResponse> getAllRecipes(Principal principal) {
+        User user = userRepository.findUserByUsername(principal.getName());
+        List<Recipe> recipes = recipeRepository.findAllByUser(user);
+        List<RecipeResponse> response = recipes.stream().map(RecipeResponse::new).toList();
+
+        return response;
+    }
 
 
     /**

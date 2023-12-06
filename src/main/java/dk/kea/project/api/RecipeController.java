@@ -92,19 +92,21 @@ public class RecipeController {
         recipeService.saveRecipe(recipeBody, principal);
     }
 
-//    @PostMapping("/admin")
-//    public void saveRecipeAdmin(@RequestBody RecipeRequest recipeBody) {
-//        recipeService.saveRecipe(recipeBody);
-//    }
     /**
      * Retrieves all recipes in the system.
      *
      * @return A list of {@code RecipeResponse} representing the recipes.
      */
-//    @GetMapping("/admin")
-//    public List<RecipeResponse> getRecipes() {
-//        return recipeService.getAllRecipes();
+    @GetMapping("/admin")
+    public List<RecipeResponse> getRecipes(Principal principal) {
+       return recipeService.getAllRecipes(principal);
+    }
+    
+//    @PostMapping("/admin")
+//    public void saveRecipeAdmin(@RequestBody RecipeRequest recipeRequest) {
+//        recipeService.saveRecipe(recipeRequest);
 //    }
+
 
     /**
      * Updates a recipe based on the provided {@code RecipeRequest}.

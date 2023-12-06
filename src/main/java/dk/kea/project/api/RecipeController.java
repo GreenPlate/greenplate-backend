@@ -125,9 +125,8 @@ public class RecipeController {
      * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be deleted.
      * @return A {@code RecipeResponse} representing the result of the delete operation.
      */
-//    @DeleteMapping("/admin")
-//    public RecipeResponse deleteRecipe(@RequestBody RecipeRequest recipeBody) {
-//        System.out.println("RecipeBody.getId() = " + recipeBody.getId());
-//        return recipeService.deleteRecipe(recipeBody);
-//    }
+    @DeleteMapping("/admin")
+    public RecipeResponse deleteRecipe(@RequestBody RecipeRequest recipeRequest) {
+        return recipeService.deleteRecipe(recipeRequest);
+    }
 }

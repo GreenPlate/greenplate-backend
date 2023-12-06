@@ -96,22 +96,21 @@ public class RecipeService {
      * @return A {@code RecipeResponse} representing the result of the delete operation.
      *         If the recipe with the given ID is not found, returns {@code null}.
      */
-//    public RecipeResponse deleteRecipe(RecipeRequest recipeRequest) {
-//        Optional<Recipe> existingRecipeOptional = recipeRepository.findById(recipeRequest.getId());
-//
-//        if (existingRecipeOptional.isPresent()) {
-//            Recipe existingRecipe = existingRecipeOptional.get();
-//
-//            // Delete the recipe from the repository
-//            recipeRepository.deleteById(recipeRequest.getId());
-//
-//            // Return a response indicating successful deletion
-//            return new RecipeResponse(existingRecipe);
-//        } else {
-//            // Handle the case where the recipe with the given ID is not found
-//            // You might throw an exception, return an error response, or handle it as appropriate
-//            return null;
-//        }
-//    }
+    public RecipeResponse deleteRecipe(RecipeRequest recipeRequest) {
+        Optional<Recipe> existingRecipeOptional = recipeRepository.findById(recipeRequest.getId());
 
+        if (existingRecipeOptional.isPresent()) {
+            Recipe existingRecipe = existingRecipeOptional.get();
+
+            // Delete the recipe from the repository
+            recipeRepository.deleteById(recipeRequest.getId());
+
+            // Return a response indicating successful deletion
+            return new RecipeResponse(existingRecipe);
+        } else {
+            // Handle the case where the recipe with the given ID is not found
+            // You might throw an exception, return an error response, or handle it as appropriate
+            return null;
+        }
+    }
 }

@@ -48,4 +48,9 @@ public class RecipeRequest {
         this.recipeBody = recipeBody;
         this.offers = offers;
     }
+
+    public RecipeRequest(String recipeTitle, String recipeBody) {
+        this.recipeTitle = recipeTitle;
+        this.recipeBody = recipeBody;
+    }
 }

@@ -92,19 +92,21 @@ public class RecipeController {
         recipeService.saveRecipe(recipeBody, principal);
     }
 
-//    @PostMapping("/admin")
-//    public void saveRecipeAdmin(@RequestBody RecipeRequest recipeBody) {
-//        recipeService.saveRecipe(recipeBody);
-//    }
     /**
      * Retrieves all recipes in the system.
      *
      * @return A list of {@code RecipeResponse} representing the recipes.
      */
-//    @GetMapping("/admin")
-//    public List<RecipeResponse> getRecipes() {
-//        return recipeService.getAllRecipes();
+    @GetMapping("/admin")
+    public List<RecipeResponse> getRecipes(Principal principal) {
+       return recipeService.getAllRecipes(principal);
+    }
+    
+//    @PostMapping("/admin")
+//    public void saveRecipeAdmin(@RequestBody RecipeRequest recipeRequest) {
+//        recipeService.saveRecipe(recipeRequest);
 //    }
+
 
     /**
      * Updates a recipe based on the provided {@code RecipeRequest}.
@@ -112,10 +114,10 @@ public class RecipeController {
      * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be updated.
      * @return A {@code RecipeResponse} representing the result of the update operation.
      */
-//    @PatchMapping("/admin")
-//    public RecipeResponse updateRecipe(@RequestBody RecipeRequest recipeBody) {
-//        return recipeService.updateRecipe(recipeBody);
-//    }
+    @PatchMapping("/admin")
+    public RecipeResponse updateRecipe(@RequestBody RecipeRequest recipeRequest) {
+        return recipeService.updateRecipe(recipeRequest);
+    }
 
     /**
      * Deletes a recipe based on the provided {@code RecipeRequest}.
@@ -123,9 +125,8 @@ public class RecipeController {
      * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be deleted.
      * @return A {@code RecipeResponse} representing the result of the delete operation.
      */
-//    @DeleteMapping("/admin")
-//    public RecipeResponse deleteRecipe(@RequestBody RecipeRequest recipeBody) {
-//        System.out.println("RecipeBody.getId() = " + recipeBody.getId());
-//        return recipeService.deleteRecipe(recipeBody);
-//    }
+    @DeleteMapping("/admin")
+    public RecipeResponse deleteRecipe(@RequestBody RecipeRequest recipeRequest) {
+        return recipeService.deleteRecipe(recipeRequest);
+    }
 }

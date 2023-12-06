@@ -41,7 +41,7 @@ public class RecipeRequest {
      *
      * @param recipeTitle       The title of the recipe.
      * @param recipeBody        The body or content of the recipe.
-     * @param recipeIngredients The ingredients used in the recipe.
+     * @param offers            The list of offers used in the recipe.
      */
     public RecipeRequest(String recipeTitle, String recipeBody, List<Offer> offers) {
         this.recipeTitle = recipeTitle;

@@ -114,10 +114,10 @@ public class RecipeController {
      * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be updated.
      * @return A {@code RecipeResponse} representing the result of the update operation.
      */
-//    @PatchMapping("/admin")
-//    public RecipeResponse updateRecipe(@RequestBody RecipeRequest recipeBody) {
-//        return recipeService.updateRecipe(recipeBody);
-//    }
+    @PatchMapping("/admin")
+    public RecipeResponse updateRecipe(@RequestBody RecipeRequest recipeRequest) {
+        return recipeService.updateRecipe(recipeRequest);
+    }
 
     /**
      * Deletes a recipe based on the provided {@code RecipeRequest}.

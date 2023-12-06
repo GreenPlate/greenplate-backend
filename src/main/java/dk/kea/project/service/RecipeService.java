@@ -26,6 +26,12 @@ public class RecipeService {
          this.userRepository = userRepository;
     }
 
+    /**
+     * saves a recipe to the repository
+     * @param recipeRequest
+     * @param principal
+     */
+
     public void saveRecipe(RecipeRequest recipeRequest, Principal principal) {
         Recipe recipe = new Recipe();
         recipe.setRecipeBody(recipeRequest.getRecipeBody());

@@ -19,6 +19,13 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
 import java.util.List;
+/**
+ * Service class responsible for interacting with the OpenAI API to generate chat-based recipes.
+ * This service handles communication with the OpenAI API, processes the API response,
+ * and maintains statistics related to API usage.
+ *
+ *
+ */
 
 @Service
 public class OpenAIService {
@@ -36,7 +43,12 @@ public class OpenAIService {
 	SallingService sallingService;
 	ApiUsageRepository apiUsageRepository;
 
-
+	/**
+	 * Constructor to initialize the OpenAIService.
+	 *
+	 * @param sallingService      The SallingService instance for handling Salling-related operations.
+	 * @param apiUsageRepository  The ApiUsageRepository for persisting API usage statistics.
+	 */
 	public OpenAIService(SallingService sallingService, ApiUsageRepository apiUsageRepository) {
 		this.client = WebClient.create();
 		this.sallingService = sallingService;
@@ -48,7 +60,14 @@ public class OpenAIService {
 //		this.sallingService = new SallingService();
 //	}
 
-
+	/**
+	 * Makes a request to the OpenAI API to generate a chat-based recipe.
+	 *
+	 * @param ingredients      The ingredients provided by the user for generating the recipe.
+	 * @param _systemMessage   The system message to guide the chat-based generation.
+	 * @return A {@code MyRecipe} representing the generated recipe.
+	 * @throws ResponseStatusException If there is an error in the API request or processing the response.
+	 */
 	public MyRecipe makeRequest(String ingredients, String _systemMessage) {
 		ChatRecipeRequest requestDto = new ChatRecipeRequest();
 		requestDto.setModel(MODEL);

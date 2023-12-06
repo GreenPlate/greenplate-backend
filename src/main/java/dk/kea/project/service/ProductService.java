@@ -58,7 +58,7 @@ public class ProductService {
 		offerRepository.saveAll(offers);
 
 	}
-	
+
 	public List<ProductCountResponse> getProductCount(){
 		List<Object[]> result = productRepository.getProductCount();
 

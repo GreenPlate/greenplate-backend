@@ -32,4 +32,11 @@ public class Recipe {
         this.recipeBody = recipeBody;
         this.offers = offers;
     }
+
+    public Recipe(String recipeTitle, String recipeBody, User user, List<Offer> offers) {
+        this.recipeTitle = recipeTitle;
+        this.recipeBody = recipeBody;
+        this.user = user;
+        this.offers = offers;
+    }
 }

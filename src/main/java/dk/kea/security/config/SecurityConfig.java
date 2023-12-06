@@ -100,6 +100,9 @@ public class SecurityConfig {
             // PRODUCT CONTROLLER
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/products/count")).permitAll()
 
+            // SHOPPINGLIST ENDPOINTS
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/shopping-list/save-shopping-list")).hasAuthority("USER")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/shopping-list/user-authenticated")).hasAuthority("USER")
 
             //Use this to completely disable security (Will not work if endpoints has been marked with @PreAuthorize)
             //.requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll());

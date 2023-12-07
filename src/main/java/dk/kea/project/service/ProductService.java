@@ -29,13 +29,14 @@ public class ProductService {
 	OfferRepository offerRepository;
 
 	SallingService sallingService;
+
 	/**
 	 * Constructs a new ProductService with the necessary repositories and services.
 	 *
-	 * @param productRepository   The repository for managing products.
-	 * @param requestRepository   The repository for managing requests.
-	 * @param offerRepository     The repository for managing offers.
-	 * @param sallingService      The SallingService for handling Salling-related operations.
+	 * @param productRepository The repository for managing products.
+	 * @param requestRepository The repository for managing requests.
+	 * @param offerRepository   The repository for managing offers.
+	 * @param sallingService    The SallingService for handling Salling-related operations.
 	 */
 
 	public ProductService(ProductRepository productRepository, RequestRepository requestRepository,
@@ -45,6 +46,7 @@ public class ProductService {
 		this.offerRepository = offerRepository;
 		this.sallingService = sallingService;
 	}
+
 	/**
 	 * Retrieves product responses based on the specified request ID.
 	 *
@@ -56,6 +58,7 @@ public class ProductService {
 
 		return offerRepository.findAllByRequest_Id(requestId).stream().map(ProductResponse::new).collect(Collectors.toList());
 	}
+
 	/**
 	 * Adds a product to the database.
 	 *
@@ -65,6 +68,7 @@ public class ProductService {
 	public void addProduct(Product product) {
 		productRepository.save(product);
 	}
+
 	/**
 	 * Adds a list of offers to the database.
 	 *
@@ -73,6 +77,7 @@ public class ProductService {
 	public void addOffers(List<Offer> offers) {
 		offerRepository.saveAll(offers);
 	}
+
 	/**
 	 * Retrieves offers from Salling, processes the data, and saves the offers to the database.
 	 *
@@ -92,20 +97,21 @@ public class ProductService {
 
 	}
 
-  public List<Object[]> getAllOffersWithProductDescription() {
+	public List<Object[]> getAllOffersWithProductDescription() {
 		return offerRepository.getAllOfferDetailsWithProductDescription();
 
-
-	public List<ProductCountResponse> getProductCount(){
-		List<Object[]> result = productRepository.getProductCount();
-
-		return result.stream()
-				.map(row -> new ProductCountResponse(
-						(String) row[0], // Assuming productEan is of type String
-						(String) row[1], // Assuming productName is of type String
-						((Number) row[2]).longValue() // Assuming usageCount is of type Long
-				))
-				.collect(Collectors.toList());
 	}
+		public List<ProductCountResponse> getProductCount () {
+			List<Object[]> result = productRepository.getProductCount();
+
+			return result.stream()
+					.map(row -> new ProductCountResponse(
+							(String) row[0], // Assuming productEan is of type String
+							(String) row[1], // Assuming productName is of type String
+							((Number) row[2]).longValue() // Assuming usageCount is of type Long
+					))
+					.collect(Collectors.toList());
+		}
+
 }
 

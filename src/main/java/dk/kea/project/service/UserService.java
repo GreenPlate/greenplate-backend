@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
+
 /**
  * Service class responsible for managing operations related to users.
  * This service provides methods for retrieving, updating, creating, and deleting user information.
@@ -115,5 +117,20 @@ public class UserService {
     public void deleteUser(String username) {
         User user = getUser(username);
         userRepository.deleteById(username);
+    }
+
+    public UserResponse patchUser(UserRequest userRequest, String name) {
+        User existingUser = getUser(name);
+        if(!userRequest.getUsername().equals(name)) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Not the same username");
+        }
+        else {
+            if (userRequest.getPassword() != null) existingUser.setPassword(userRequest.getPassword());
+            if (userRequest.getEmail() != null) existingUser.setEmail(userRequest.getEmail());
+            if (userRequest.getFirstName() != null) existingUser.setFirstName(userRequest.getFirstName());
+            if (userRequest.getLastName() != null) existingUser.setLastName(userRequest.getLastName());
+        }
+        User updatedUser = userRepository.save(existingUser);
+        return new UserResponse(updatedUser);
     }
 }

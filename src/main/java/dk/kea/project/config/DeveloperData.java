@@ -9,6 +9,7 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.context.annotation.Configuration;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Configuration
@@ -20,15 +21,19 @@ public class DeveloperData implements ApplicationRunner {
     OfferRepository offerRepository;
     ProductRepository productRepository;
 
+    ShoppingListRepository shoppingListRepository;
+
     public DeveloperData(UserRepository userRepository, RecipeRepository recipeRepository,
                          StoreRepository storeRepository, RequestRepository requestRepository,
-                         OfferRepository offerRepository, ProductRepository productRepository) {
+                         OfferRepository offerRepository, ProductRepository productRepository,
+                         ShoppingListRepository shoppingListRepository) {
         this.userRepository = userRepository;
         this.recipeRepository = recipeRepository;
         this.storeRepository = storeRepository;
         this.requestRepository = requestRepository;
         this.offerRepository = offerRepository;
         this.productRepository = productRepository;
+        this.shoppingListRepository = shoppingListRepository;
     }
     @Override
     public void run(ApplicationArguments args) throws Exception {
@@ -72,6 +77,8 @@ public class DeveloperData implements ApplicationRunner {
     Recipe recipe4 = new Recipe("Recipe 2", "Recipe body 2", admin1, List.of(offer1, offer3));
     recipeRepository.saveAll(List.of(recipe1, recipe2, recipe3, recipe4));
 
+    ShoppingList shoppingList1 = new ShoppingList(user1, List.of(offer1, offer2), LocalDateTime.now());
+    shoppingListRepository.save(shoppingList1);
 
 
 

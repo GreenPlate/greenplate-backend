@@ -81,6 +81,7 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/users/user-as-authenticated")).hasAuthority("USER")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/users")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.DELETE, "/api/users/{username}")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.PATCH, "/api/users/user-as-authenticated")).hasAuthority("USER")
 
             // STORES ENDPOINTS
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/stores")).permitAll()
@@ -97,11 +98,15 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/admin")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/save-recipe")).hasAuthority("USER")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/save-recipe")).hasAuthority("ADMIN")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/user-as-authenticated")).hasAuthority("USER"
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/admin")).hasAuthority("ADMIN")
 
             // PRODUCT CONTROLLER
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/products/count")).permitAll()
 
+            // SHOPPINGLIST ENDPOINTS
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/shopping-list/save-shopping-list")).hasAuthority("USER")
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.GET, "/api/shopping-list/user-as-authenticated")).hasAuthority("USER")
 
             //Use this to completely disable security (Will not work if endpoints has been marked with @PreAuthorize)
 //            .requestMatchers(mvcMatcherBuilder.pattern("/**")).permitAll());

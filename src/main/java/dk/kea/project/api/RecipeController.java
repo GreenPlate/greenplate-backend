@@ -133,4 +133,8 @@ public class RecipeController {
     public RecipeResponse deleteRecipe(@RequestBody RecipeRequest recipeRequest) {
         return recipeService.deleteRecipe(recipeRequest);
     }
+    @GetMapping("/user-as-authenticated")
+    public List<RecipeResponse> getAllRecipes(Principal principal) {
+        return recipeService.getAllRecipes(principal);
+    }
 }

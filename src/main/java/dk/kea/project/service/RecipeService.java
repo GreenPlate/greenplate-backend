@@ -42,7 +42,15 @@ public class RecipeService {
         recipe.setUser(userRepository.findUserByUsername(principal.getName()));
         recipeRepository.save(recipe);
     }
-
+    public void saveRecipeAdmin(RecipeRequest recipeRequest, Principal principal ) {
+        Recipe recipe = new Recipe();
+        recipe.setRecipeBody(recipeRequest.getRecipeBody());
+        recipe.setRecipeTitle(recipeRequest.getRecipeTitle());
+        List<Offer> offers = recipeRequest.getOffers();
+        recipe.setOffers(offers);
+        recipe.setUser(userRepository.findUserByUsername(principal.getName()));
+        recipeRepository.save(recipe);
+    }
     /**
      * Retrieves all recipes from the repository and converts them into a list of {@code RecipeResponse}.
      *

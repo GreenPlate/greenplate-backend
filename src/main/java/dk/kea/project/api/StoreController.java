@@ -1,10 +1,10 @@
 package dk.kea.project.api;
 
+
 import dk.kea.project.dto.*;
 import dk.kea.project.entity.Offer;
 import dk.kea.project.entity.Product;
 import dk.kea.project.entity.Request;
-import dk.kea.project.entity.Store;
 import dk.kea.project.repository.RequestRepository;
 import dk.kea.project.service.ProductService;
 import dk.kea.project.service.RequestService;
@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 /**
@@ -29,7 +28,6 @@ import java.util.stream.Collectors;
  *
  *
  */
-
 @RestController
 @RequestMapping("/api/stores")
 public class StoreController {
@@ -96,6 +94,11 @@ public class StoreController {
         productService.getOffersfromSallingAndSave(id, request);
         return productService.getProducts(request.getId());
     }
+    @GetMapping("/products")
+    public List<Object[]> OfferDetailsWithProductDescription(){
+        return productService.getAllOffersWithProductDescription();
+    }
+
 //    public List<ProductResponse> getProducts(@RequestParam String id){
 //        // check if request still is valid:
 //        if (productService.checkRequest(id)){

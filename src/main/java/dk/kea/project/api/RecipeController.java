@@ -88,13 +88,13 @@ public class RecipeController {
      */
 
     @PostMapping("/save-recipe")
-    public void saveRecipe(@RequestBody RecipeRequest recipeBody, Principal principal) {
-        recipeService.saveRecipe(recipeBody, principal);
+    public ResponseStatusException saveRecipe(@RequestBody RecipeRequest recipeBody, Principal principal) {
+        return recipeService.saveRecipe(recipeBody, principal);
     }
 
     @PostMapping("/admin")
-    public void saveRecipeAdmin(@RequestBody RecipeRequest recipeBody, Principal principal) {
-        recipeService.saveRecipeAdmin(recipeBody, principal);
+    public ResponseStatusException saveRecipeAdmin(@RequestBody RecipeRequest recipeBody, Principal principal) {
+        return recipeService.saveRecipeAdmin(recipeBody, principal);
     }
     /**
      * Retrieves all recipes in the system.
@@ -115,7 +115,7 @@ public class RecipeController {
     /**
      * Updates a recipe based on the provided {@code RecipeRequest}.
      *
-     * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be updated.
+     * @param recipeRequest The {@code RecipeRequest} containing information about the recipe to be updated.
      * @return A {@code RecipeResponse} representing the result of the update operation.
      */
     @PatchMapping("/admin")
@@ -126,7 +126,7 @@ public class RecipeController {
     /**
      * Deletes a recipe based on the provided {@code RecipeRequest}.
      *
-     * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be deleted.
+     * @param recipeRequest The {@code RecipeRequest} containing information about the recipe to be deleted.
      * @return A {@code RecipeResponse} representing the result of the delete operation.
      */
     @DeleteMapping("/admin")

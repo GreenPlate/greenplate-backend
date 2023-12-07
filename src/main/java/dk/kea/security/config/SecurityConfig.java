@@ -98,7 +98,7 @@ public class SecurityConfig {
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/admin")).hasAuthority("ADMIN")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/save-recipe")).hasAuthority("USER")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/save-recipe")).hasAuthority("ADMIN")
-            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/user-as-authenticated")).hasAuthority("USER"
+            .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/user-as-authenticated")).hasAuthority("USER")
             .requestMatchers(mvcMatcherBuilder.pattern(HttpMethod.POST, "/api/recipes/admin")).hasAuthority("ADMIN")
 
             // PRODUCT CONTROLLER

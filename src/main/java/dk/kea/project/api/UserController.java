@@ -96,4 +96,8 @@ public class UserController {
     public void deleteUser(@PathVariable String username){
         userService.deleteUser(username);
     }
+    @PatchMapping("/user-as-authenticated")
+    public UserResponse patchUser(@RequestBody UserRequest userRequest, Principal principal){
+        return userService.patchUser(userRequest, principal.getName());
+    }
 }

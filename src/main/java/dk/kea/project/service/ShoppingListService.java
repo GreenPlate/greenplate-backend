@@ -35,7 +35,8 @@ public class ShoppingListService {
         List<Offer> offers = body.getOffers().stream().map(offer -> offerRepository.findAllById(offer.getId())).toList();
         shoppingList.setOffers(offers);
         shoppingList.setUser(userRepository.findUserByUsername(principal.getName()));
-        shoppingList.setCreatedAt(LocalDateTime.now());
+        LocalDateTime now = LocalDateTime.now();
+        shoppingList.setCreatedAt(now);
         shoppingListRepository.save(shoppingList);
     }
 }

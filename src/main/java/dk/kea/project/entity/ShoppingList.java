@@ -28,7 +28,7 @@ public class ShoppingList {
     @CreationTimestamp
     LocalDateTime createdAt;
 
-    public <E> ShoppingList(User user, List<Offer> offers, LocalDateTime now) {
+    public ShoppingList(User user, List<Offer> offers, LocalDateTime now) {
         this.user = user;
         this.offers = offers;
         this.createdAt = now;

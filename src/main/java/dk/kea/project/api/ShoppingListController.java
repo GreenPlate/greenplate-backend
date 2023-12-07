@@ -21,7 +21,7 @@ public class ShoppingListController {
     public void saveShoppingList(@RequestBody ShoppingListRequest body, Principal principal) {
         shoppingListService.saveShoppingList(body, principal);
     }
-    @GetMapping("/user-authenticated")
+    @GetMapping("/user-as-authenticated")
     public List<ShoppingListResponse> getAllShoppingLists(Principal principal) {
         String username = principal.getName();
         return shoppingListService.findShoppingListsByUser(username);

@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, String> {
+	List<Product> findAllByOrderByDescriptionAsc();
 //		List<Product> findAllByStoreId(String storeId);
 //		Page<Product> findAllByStoreId(String storeId, Pageable pageable);
 
@@ -20,7 +21,4 @@ public interface ProductRepository extends JpaRepository<Product, String> {
 			"JOIN recipe_offers ro ON o.id = ro.offers_id " +
 			"GROUP BY p.ean")
 	List<Object[]> getProductCount();
-
-
-	
 }

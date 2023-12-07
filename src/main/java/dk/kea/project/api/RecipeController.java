@@ -20,7 +20,15 @@ import java.time.Duration;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-
+/**
+ * REST controller handling recipe-related endpoints.
+ * <p>
+ * This controller provides endpoints for making recipe requests, saving recipes,
+ * and accessing recipe-related functionalities. It includes rate-limiting to prevent abuse.
+ * </p>
+ *
+ *
+ */
 @RestController
 @RequestMapping("/api/recipes")
 public class RecipeController {
@@ -52,6 +60,14 @@ public class RecipeController {
         this.openAIService = openAIService;
         this.recipeService = recipeService;
     }
+    /**
+     * Makes a recipe request based on the provided ingredients.
+     *
+     * @param ingredients The ingredients for the recipe request.
+     * @param request     The HTTP servlet request object.
+     * @return A {@code MyRecipe} representing the result of the recipe request.
+     * @throws ResponseStatusException If there are too many requests from the same client.
+     */
     @PostMapping()
     public MyRecipe makeRequest(@RequestBody String ingredients, HttpServletRequest request) {
         String ip = request.getRemoteAddr();
@@ -64,46 +80,61 @@ public class RecipeController {
         MyRecipe myRecipe = openAIService.makeRequest(ingredients, SYSTEM_MESSAGE);
         return myRecipe;
     }
+    /**
+     * Saves a recipe based on the provided {@code RecipeRequest}.
+     *
+     * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be saved.
+     * @param principal  The authenticated principal (user) making the request.
+     */
 
     @PostMapping("/save-recipe")
-    public void saveRecipe(@RequestBody RecipeRequest recipeBody, Principal principal) {
-        recipeService.saveRecipe(recipeBody, principal);
+    public ResponseStatusException saveRecipe(@RequestBody RecipeRequest recipeBody, Principal principal) {
+        return recipeService.saveRecipe(recipeBody, principal);
     }
 
-//    @PostMapping("/admin")
-//    public void saveRecipeAdmin(@RequestBody RecipeRequest recipeBody) {
-//        recipeService.saveRecipe(recipeBody);
-//    }
+    @PostMapping("/admin")
+    public ResponseStatusException saveRecipeAdmin(@RequestBody RecipeRequest recipeBody, Principal principal) {
+        return recipeService.saveRecipeAdmin(recipeBody, principal);
+    }
     /**
      * Retrieves all recipes in the system.
      *
      * @return A list of {@code RecipeResponse} representing the recipes.
      */
-//    @GetMapping("/admin")
-//    public List<RecipeResponse> getRecipes() {
-//        return recipeService.getAllRecipes();
+    @GetMapping("/admin")
+    public List<RecipeResponse> getRecipes(Principal principal) {
+       return recipeService.getAllRecipes(principal);
+    }
+    
+//    @PostMapping("/admin")
+//    public void saveRecipeAdmin(@RequestBody RecipeRequest recipeRequest) {
+//        recipeService.saveRecipe(recipeRequest);
 //    }
+
 
     /**
      * Updates a recipe based on the provided {@code RecipeRequest}.
      *
-     * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be updated.
+     * @param recipeRequest The {@code RecipeRequest} containing information about the recipe to be updated.
      * @return A {@code RecipeResponse} representing the result of the update operation.
      */
-//    @PatchMapping("/admin")
-//    public RecipeResponse updateRecipe(@RequestBody RecipeRequest recipeBody) {
-//        return recipeService.updateRecipe(recipeBody);
-//    }
+    @PatchMapping("/admin")
+    public RecipeResponse updateRecipe(@RequestBody RecipeRequest recipeRequest) {
+        return recipeService.updateRecipe(recipeRequest);
+    }
 
     /**
      * Deletes a recipe based on the provided {@code RecipeRequest}.
      *
-     * @param recipeBody The {@code RecipeRequest} containing information about the recipe to be deleted.
+     * @param recipeRequest The {@code RecipeRequest} containing information about the recipe to be deleted.
      * @return A {@code RecipeResponse} representing the result of the delete operation.
      */
-//    @DeleteMapping("/admin")
-//    public RecipeResponse deleteRecipe(@RequestBody RecipeRequest recipeBody) {
-//        System.out.println("RecipeBody.getId() = " + recipeBody.getId());
-//        return recipeService.deleteRecipe(recipeBody);
-//    }
+    @DeleteMapping("/admin")
+    public RecipeResponse deleteRecipe(@RequestBody RecipeRequest recipeRequest) {
+        return recipeService.deleteRecipe(recipeRequest);
+    }
+    @GetMapping("/user-as-authenticated")
+    public List<RecipeResponse> getAllRecipes(Principal principal) {
+        return recipeService.getAllRecipes(principal);
+    }
 }

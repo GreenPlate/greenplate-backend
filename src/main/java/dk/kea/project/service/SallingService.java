@@ -11,6 +11,12 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
+/**
+ * Service class responsible for interacting with Salling Group's API.
+ * This service provides methods to retrieve information about stores, food waste, and generate random ingredients.
+ *
+ *
+ */
 
 @Service
 public class SallingService{
@@ -22,10 +28,18 @@ public class SallingService{
     private String SALLING_API_KEY;
 
     private WebClient webClient;
-
+    /**
+     * Constructs a new SallingService and initializes the WebClient.
+     */
     public SallingService() {
         this.webClient = WebClient.create();
     }
+    /**
+     * Retrieves a list of SallingStoreResponse objects based on the provided zipcode.
+     *
+     * @param zipcode The zipcode used to filter stores.
+     * @return A filtered list of SallingStoreResponse objects.
+     */
     public List<SallingStoreResponse> getStores(String zipcode){
         List<SallingStoreResponse> stores = webClient.method(HttpMethod.GET)
                 .uri(SALLING_API_URL_V2 + "/stores?zip="+ zipcode)
@@ -43,6 +57,12 @@ public class SallingService{
         return filteredStores;
 
     }
+    /**
+     * Retrieves a list of SallingResponse objects representing food waste for a specific store.
+     *
+     * @param id The ID of the store for which food waste information is retrieved.
+     * @return A list of SallingResponse objects containing information about food waste.
+     */
 
     public List<SallingResponse> getFoodWaste(String id){
         List<SallingResponse> products =
@@ -58,7 +78,12 @@ public class SallingService{
 
                 return products;
     }
-
+    /**
+     * Generates a string of random ingredients based on food waste information.
+     *
+     * @param storeId The ID of the store used to fetch food waste information.
+     * @return A string containing randomly selected ingredients.
+     */
 
     public String ingredients(String storeId){
         List<SallingResponse> products=getFoodWaste(storeId);

@@ -22,7 +22,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import static java.util.stream.Collectors.joining;
-
+/**
+ * RESTful controller for handling authentication-related operations.
+ * This controller provides an endpoint for user login and token generation.
+ * It uses an AuthenticationManager and JwtEncoder for user authentication and token creation.
+ *
+ */
 @RestController
 @RequestMapping("/api/auth/")
 @CrossOrigin
@@ -37,11 +42,24 @@ public class AuthenticationController {
   private AuthenticationManager authenticationManager;
 
   JwtEncoder encoder;
+  /**
+   * Constructs a new AuthenticationController with the specified AuthenticationManager and JwtEncoder.
+   *
+   * @param authenticationManager The manager for handling user authentication.
+   * @param encoder               The encoder for generating JWT tokens.
+   */
   public AuthenticationController(AuthenticationManager authenticationManager, JwtEncoder encoder) {
     this.authenticationManager = authenticationManager;
     this.encoder = encoder;
   }
-
+  /**
+   * Endpoint for user login and token generation.
+   * Authenticates the user using the provided credentials and generates a JWT token on successful authentication.
+   *
+   * @param request The LoginRequest containing user login credentials.
+   * @return A ResponseEntity containing a LoginResponse with user information and the generated token.
+   * @throws ResponseStatusException If authentication fails due to bad credentials, returns UNAUTHORIZED status.
+   */
   @PostMapping("login")
   public ResponseEntity<LoginResponse> login(@RequestBody LoginRequest request) {
 

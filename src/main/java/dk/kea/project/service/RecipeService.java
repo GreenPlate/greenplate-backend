@@ -8,7 +8,11 @@ import dk.kea.project.entity.User;
 import dk.kea.project.repository.OfferRepository;
 import dk.kea.project.repository.RecipeRepository;
 import dk.kea.project.repository.UserRepository;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -33,7 +37,7 @@ public class RecipeService {
      * @param principal
      */
 
-    public void saveRecipe(RecipeRequest recipeRequest, Principal principal) {
+    public ResponseStatusException saveRecipe(RecipeRequest recipeRequest, Principal principal) {
         Recipe recipe = new Recipe();
         recipe.setRecipeBody(recipeRequest.getRecipeBody());
         recipe.setRecipeTitle(recipeRequest.getRecipeTitle());
@@ -41,8 +45,9 @@ public class RecipeService {
         recipe.setOffers(offers);
         recipe.setUser(userRepository.findUserByUsername(principal.getName()));
         recipeRepository.save(recipe);
+        return new ResponseStatusException(HttpStatus.ACCEPTED, "Recipe saved");
     }
-    public void saveRecipeAdmin(RecipeRequest recipeRequest, Principal principal ) {
+    public ResponseStatusException saveRecipeAdmin(RecipeRequest recipeRequest, Principal principal ) {
         Recipe recipe = new Recipe();
         recipe.setRecipeBody(recipeRequest.getRecipeBody());
         recipe.setRecipeTitle(recipeRequest.getRecipeTitle());
@@ -50,6 +55,7 @@ public class RecipeService {
         recipe.setOffers(offers);
         recipe.setUser(userRepository.findUserByUsername(principal.getName()));
         recipeRepository.save(recipe);
+        return new ResponseStatusException(HttpStatus.ACCEPTED, "Recipe saved");
     }
     /**
      * Retrieves all recipes from the repository and converts them into a list of {@code RecipeResponse}.

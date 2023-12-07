@@ -7,7 +7,9 @@ import dk.kea.project.entity.ShoppingList;
 import dk.kea.project.repository.OfferRepository;
 import dk.kea.project.repository.ShoppingListRepository;
 import dk.kea.project.repository.UserRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
@@ -30,7 +32,7 @@ public class ShoppingListService {
         return shoppingLists.stream().map(shoppinglist -> new ShoppingListResponse(shoppinglist)).toList();
     }
 
-    public void saveShoppingList(ShoppingListRequest body, Principal principal) {
+    public ResponseStatusException saveShoppingList(ShoppingListRequest body, Principal principal) {
         ShoppingList shoppingList = new ShoppingList();
         List<Offer> offers = body.getOffers().stream().map(offer -> offerRepository.findAllById(offer.getId())).toList();
         shoppingList.setOffers(offers);
@@ -38,5 +40,6 @@ public class ShoppingListService {
         LocalDateTime now = LocalDateTime.now();
         shoppingList.setCreatedAt(now);
         shoppingListRepository.save(shoppingList);
+        return new ResponseStatusException(HttpStatus.ACCEPTED, "Shoppinglist saved");
     }
 }

@@ -4,6 +4,7 @@ import dk.kea.project.dto.ShoppingListRequest;
 import dk.kea.project.dto.ShoppingListResponse;
 import dk.kea.project.service.ShoppingListService;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -18,8 +19,8 @@ public class ShoppingListController {
     }
 
     @PostMapping("/save-shopping-list")
-    public void saveShoppingList(@RequestBody ShoppingListRequest body, Principal principal) {
-        shoppingListService.saveShoppingList(body, principal);
+    public ResponseStatusException saveShoppingList(@RequestBody ShoppingListRequest body, Principal principal) {
+        return shoppingListService.saveShoppingList(body, principal);
     }
     @GetMapping("/user-as-authenticated")
     public List<ShoppingListResponse> getAllShoppingLists(Principal principal) {

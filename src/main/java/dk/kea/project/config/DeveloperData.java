@@ -20,7 +20,6 @@ public class DeveloperData implements ApplicationRunner {
     RequestRepository requestRepository;
     OfferRepository offerRepository;
     ProductRepository productRepository;
-
     ShoppingListRepository shoppingListRepository;
 
     public DeveloperData(UserRepository userRepository, RecipeRepository recipeRepository,

@@ -18,7 +18,6 @@ import org.springframework.web.reactive.function.client.WebClientResponseExcepti
 import org.springframework.web.server.ResponseStatusException;
 
 import java.net.URI;
-import java.util.List;
 /**
  * Service class responsible for interacting with the OpenAI API to generate chat-based recipes.
  * This service handles communication with the OpenAI API, processes the API response,
@@ -54,11 +53,6 @@ public class OpenAIService {
 		this.sallingService = sallingService;
 		this.apiUsageRepository = apiUsageRepository;
 	}
-	//Use this constructor for testing, to inject a mock client
-//	public OpenAIService(WebClient client, SallingService sallingService) {
-//		this.client = client;
-//		this.sallingService = new SallingService();
-//	}
 
 	/**
 	 * Makes a request to the OpenAI API to generate a chat-based recipe.

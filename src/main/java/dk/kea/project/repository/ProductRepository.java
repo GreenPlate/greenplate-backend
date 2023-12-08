@@ -11,10 +11,6 @@ import org.springframework.data.jpa.repository.Query;
 import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, String> {
-	List<Product> findAllByOrderByDescriptionAsc();
-//		List<Product> findAllByStoreId(String storeId);
-//		Page<Product> findAllByStoreId(String storeId, Pageable pageable);
-
 	@Query(nativeQuery = true, value = "SELECT p.description AS name, p.ean AS ean, COUNT(*) AS count " +
 			"FROM Product p " +
 			"JOIN Offer o ON p.ean = o.ean " +

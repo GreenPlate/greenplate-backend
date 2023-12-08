@@ -47,8 +47,6 @@ public class StoreService {
 	 * @return A list of new stores not present in the database.
 	 */
 	public List<Store> filteredStore(List<Store> mappedStores, List<Store> oldStores){
-		System.out.println("filteredStores()");
-
 		List<Store> updatedStores = mappedStores.stream()
 				.filter(mappedStore -> oldStores.stream().noneMatch(oldStore -> oldStore.getId().equals(mappedStore.getId())))
 				.collect(Collectors.toList());

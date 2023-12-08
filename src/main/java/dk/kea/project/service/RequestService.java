@@ -78,25 +78,6 @@ public  RequestService(RequestRepository requestRepository, StoreService storeSe
 
 	}
 
-//	// check if request still is valid:
-//        if (productService.checkRequest(id)){
-//		return productService.getProducts(id);
-//	}
-//        else{
-//		//persist request in database: create new request
-//		Request request = new Request();
-//		request.setStore(storeService.findStoreById(id));
-//		LocalDateTime now = LocalDateTime.now();
-//		// request.setCreated(now);
-//		productService.addRequest(request);
-//		int requestId = productService.findNewestRequest(id,now.minusMinutes(15)).getRequestId();
-//		List<SallingResponse> sallingResponse = sallingService.getFoodWaste(id);
-//		convertSallingResponse(sallingResponse, requestId, id);
-////            productService.addProducts(products);
-//
-//
-//	}
-
 	public List<StoreCountResponse> countStoreCalls(){		
 		List<Object[]> result = requestRepository.countStoreCalls();
 		List<StoreCountResponse> storeCountResponses = new ArrayList<>();

@@ -99,48 +99,6 @@ public class StoreController {
         return productService.getAllOffersWithProductDescription();
     }
 
-//    public List<ProductResponse> getProducts(@RequestParam String id){
-//        // check if request still is valid:
-//        if (productService.checkRequest(id)){
-//            return productService.getProducts(id);
-//        }
-//        else{
-//            //persist request in database: create new request
-//            Request request = new Request();
-//            request.setStoreId(id);
-//            LocalDateTime now = LocalDateTime.now();
-//            // request.setCreated(now);
-//            productService.addRequest(request);
-//            int requestId = productService.findNewestRequest(id,now.minusMinutes(15)).getRequestId();
-//            List<SallingResponse> sallingResponse = sallingService.getFoodWaste(id);
-//            convertSallingResponse(sallingResponse, requestId, id);
-////            productService.addProducts(products);
-//
-//
-//        }
-//        return productService.getProducts(id);
-//    }
-//    private void convertSallingResponse(List<SallingResponse> sallingResponse,int requestId, String storeId) {
-//        List<Product> products= new ArrayList<>();
-//        sallingResponse.get(0).clearances.forEach(clearance -> {
-//            Product product = new Product();
-//            if (clearance.product.category == null){
-//                product.setCategory("None");
-//            }
-////            product.setCategory(clearance.product.category[0] == null ? "None" : (clearance.product.category[0]));
-//            product.setDescription(clearance.product.description==null ? "None" : (clearance.product.description));
-//            product.setImage(clearance.product.image==null ? "None" : (clearance.product.image));
-//            product.setOriginalPrice(clearance.offer.originalPrice ==0 ? 0.0 : (clearance.offer.originalPrice));
-//            product.setDiscount(clearance.offer.discount==0 ? 0.0 : (clearance.offer.discount));
-//            product.setEan(clearance.product.ean==null ? "None" : (clearance.product.ean));
-//            product.setNewPrice(clearance.offer.newPrice==0 ? 0.0 : (clearance.offer.newPrice));
-//            product.setPercentDiscount(clearance.offer.percentDiscount==0 ? 0.0 : (clearance.offer.percentDiscount));
-//            product.setRequestId(requestId);
-//            product.setStoreId(storeId);
-//            products.add(product);
-//        });
-//        productService.addProducts(products);
-//    }
     @GetMapping("/countstorecalls")
     public List<StoreCountResponse> getStoreCount(){
         System.out.println("countStoreCalls()");

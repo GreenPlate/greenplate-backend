@@ -105,12 +105,6 @@ public class RecipeController {
     public List<RecipeResponse> getRecipes(Principal principal) {
        return recipeService.getAllRecipes(principal);
     }
-    
-//    @PostMapping("/admin")
-//    public void saveRecipeAdmin(@RequestBody RecipeRequest recipeRequest) {
-//        recipeService.saveRecipe(recipeRequest);
-//    }
-
 
     /**
      * Updates a recipe based on the provided {@code RecipeRequest}.

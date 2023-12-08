@@ -8,9 +8,7 @@ import dk.kea.project.entity.User;
 import dk.kea.project.repository.OfferRepository;
 import dk.kea.project.repository.RecipeRepository;
 import dk.kea.project.repository.UserRepository;
-import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 

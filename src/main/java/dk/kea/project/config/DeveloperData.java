@@ -76,13 +76,9 @@ public class DeveloperData implements ApplicationRunner {
     Recipe recipe4 = new Recipe("Recipe 2", "Recipe body 2", admin1, List.of(offer1, offer3));
     recipeRepository.saveAll(List.of(recipe1, recipe2, recipe3, recipe4));
 
+    // Create and save shopping lists
     ShoppingList shoppingList1 = new ShoppingList(user1, List.of(offer1, offer2), LocalDateTime.now());
     shoppingListRepository.save(shoppingList1);
 
-
-
-
-        //    Recipe recipe = new Recipe("Ostehapser", "Ostehapser er en lækker snack", "Ost, mel, æg, rasp", user1);
-//    recipeRepository.save(recipe);
     }
 }

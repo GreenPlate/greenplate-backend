@@ -20,7 +20,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class SallingService{
-
     private final static String SALLING_API_URL_V1 = "https://api.sallinggroup.com/v1";
     private final static String SALLING_API_URL_V2 = "https://api.sallinggroup.com/v2";
 

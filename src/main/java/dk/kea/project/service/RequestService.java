@@ -10,6 +10,8 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
+
 /**
  * Service class responsible for managing requests and their associated data.
  * This service interacts with the database to retrieve, save, and process request-related information.
@@ -39,13 +41,8 @@ public  RequestService(RequestRepository requestRepository, StoreService storeSe
 	 * @return {@code true} if the request exists and is still valid; {@code false} otherwise.
 	 */
 	public boolean checkRequest(String id){
-		boolean requestExistsAndStillValid = false;
-		LocalDateTime now = LocalDateTime.now();
-
-		if(requestRepository.existsByStoreId(id) && requestRepository.findByStoreId(id).getExpires().isAfter(now)){
-			requestExistsAndStillValid=true;
-		}
-		return requestExistsAndStillValid;
+		LocalDateTime fifteenMinutesAgo = LocalDateTime.now().minusMinutes(15);
+		return requestRepository.findRequestByStoreIdAndCreatedIsAfter(id, fifteenMinutesAgo) != null;
 	}
 	/**
 	 * Finds the newest request for the specified store ID created after a given timestamp.
